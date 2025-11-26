@@ -1,0 +1,46 @@
+version: '3.8'
+
+# Development configuration with hot-reloading
+services:
+  # Backend API Service (Development)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    container_name: wordle-royale-backend-dev
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=development
+      - PORT=3001
+      - RESOLVER_PRIVATE_KEY=${RESOLVER_PRIVATE_KEY}
+      - SERVER_SECRET=${SERVER_SECRET}
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    networks:
+      - wordle-network-dev
+
+  # Frontend Web Service (Development)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    container_name: wordle-royale-frontend-dev
+    restart: unless-stopped
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_API_URL=http://localhost:3001
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    networks:
+      - wordle-network-dev
+
+networks:
+  wordle-network-dev:
+    driver: bridge

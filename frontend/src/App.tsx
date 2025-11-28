@@ -446,7 +446,8 @@ function App() {
     } else {
       // Desktop: try injected wallet first, fallback to WalletConnect
       const injected = connectors.find((c) => c.id === 'injected')
-      if (injected && window.ethereum) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      if (injected && (window as any).ethereum) {
         connect({ connector: injected })
       } else {
         // Fallback to WalletConnect for desktop without MetaMask

@@ -971,37 +971,28 @@ function App() {
               <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
             </svg>
           </a>
-          <div className="header-divider"></div>
-          {!isConnected ? (
-            <button className="btn header-wallet-btn-lg" onClick={handleConnect} disabled={isConnecting}>
-              {isConnecting ? 'Connecting...' : 'Connect Wallet'}
-            </button>
-          ) : (
-            <button className="btn header-wallet-btn-lg" onClick={() => disconnect()}>
-              {address?.slice(0, 6)}...{address?.slice(-4)}
-            </button>
-          )}
         </div>
       </header>
 
       {!isConnected ? (
         <div className="homepage-split">
           {/* Left side - Message */}
-          <div className="homepage-left homepage-left-play">
+          <div className="homepage-left">
             <div className="homepage-message">
-              <h2 className="homepage-title">Play & Earn WRDL</h2>
+              <h2 className="homepage-title">Coming Soon</h2>
               <p className="homepage-desc">
-                Guess the word, win tokens. Free to play, fun to master.
+                The game will be available once the bonding curve is complete.
               </p>
-              <button
-                className="btn homepage-play-btn"
-                onClick={handleConnect}
-                disabled={isConnecting}
+              <a
+                href="https://nad.fun/tokens/0xfE569A198cadA6E7b3B7C51a59b0A0C3b4157777"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn homepage-buy-btn"
               >
-                {isConnecting ? 'Connecting...' : 'Start Playing'}
-              </button>
-              <p className="homepage-free-info">
-                100% Free to Play
+                Buy $WRDL Token
+              </a>
+              <p className="homepage-nad-info">
+                Available on <a href="https://nad.fun/tokens/0xfE569A198cadA6E7b3B7C51a59b0A0C3b4157777" target="_blank" rel="noopener noreferrer"><img src="/nad-fun-logo.svg" alt="nad.fun" className="nad-fun-logo" /> nad.fun</a>
               </p>
             </div>
             <div className="homepage-bottom">

@@ -1003,6 +1003,14 @@ function App() {
               <p className="homepage-free-info">
                 100% Free to Play
               </p>
+              <a
+                href="https://nad.fun/tokens/0xfE569A198cadA6E7b3B7C51a59b0A0C3b4157777"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn homepage-buy-btn"
+              >
+                Buy WRDL
+              </a>
             </div>
             <div className="homepage-bottom">
               <div className="homepage-powered-by">

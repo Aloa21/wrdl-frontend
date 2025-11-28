@@ -6,6 +6,7 @@ frontend:
         - npm ci --legacy-peer-deps
     build:
       commands:
+        - echo "VITE_WALLETCONNECT_PROJECT_ID=$VITE_WALLETCONNECT_PROJECT_ID"
         - npm run build
   artifacts:
     baseDirectory: dist

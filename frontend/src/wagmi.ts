@@ -1,5 +1,8 @@
 import { http, createConfig } from 'wagmi'
-import { injected } from 'wagmi/connectors'
+import { injected, walletConnect } from 'wagmi/connectors'
+
+// WalletConnect Project ID - Get yours at https://cloud.walletconnect.com/
+const WALLETCONNECT_PROJECT_ID = import.meta.env.VITE_WALLETCONNECT_PROJECT_ID || 'YOUR_PROJECT_ID_HERE'
 
 // Define Monad Mainnet chain
 export const monad = {
@@ -21,7 +24,21 @@ export const monad = {
 export const config = createConfig({
   chains: [monad],
   connectors: [
-    injected(),
+    // Injected connector for desktop browser wallets (MetaMask, Rabby, etc.)
+    injected({
+      shimDisconnect: false,
+    }),
+    // WalletConnect v2 for mobile wallets
+    walletConnect({
+      projectId: WALLETCONNECT_PROJECT_ID,
+      metadata: {
+        name: 'WRDL - Wordle on Monad',
+        description: 'Play Wordle on Monad blockchain',
+        url: typeof window !== 'undefined' ? window.location.origin : 'https://wrdl.online',
+        icons: [typeof window !== 'undefined' ? `${window.location.origin}/wrdl-icon.svg` : 'https://wrdl.online/wrdl-icon.svg'],
+      },
+      showQrModal: false, // We handle deep linking ourselves
+    }),
   ],
   transports: {
     [monad.id]: http(),

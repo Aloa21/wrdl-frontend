@@ -21,8 +21,8 @@ export const MobileWalletSelector = ({
         <div className="mobile-wallet-header">
           <h3>Choose Your Wallet</h3>
           <button className="mobile-wallet-close" onClick={onClose}>
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
-              <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M18 6L6 18M6 6l12 12"/>
             </svg>
           </button>
         </div>

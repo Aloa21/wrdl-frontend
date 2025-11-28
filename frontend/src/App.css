@@ -2849,33 +2849,57 @@ footer .network-badge::before {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.9);
-  backdrop-filter: blur(20px);
+  background: rgba(0, 0, 0, 0.92);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   z-index: 9999;
   display: flex;
   align-items: flex-start;
   justify-content: center;
   padding: var(--space-4);
-  padding-top: 10vh;
+  padding-top: 12vh;
   overflow-y: auto;
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .mobile-wallet-modal {
   width: 100%;
-  max-width: 380px;
+  max-width: 400px;
   background: var(--bg-surface);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--border-default);
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.8);
+  border-radius: var(--radius-xl);
+  border: 2px solid var(--border-default);
+  box-shadow: 0 12px 60px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.05);
   overflow: hidden;
+  animation: slideUp 0.3s ease-out;
 }
 
 .mobile-wallet-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--space-3) var(--space-4);
+  padding: var(--space-4);
   border-bottom: 1px solid var(--border-default);
+  background: rgba(255, 255, 255, 0.02);
 }
 
 .mobile-wallet-header h3 {
@@ -2891,9 +2915,12 @@ footer .network-badge::before {
   border: none;
   color: var(--text-secondary);
   cursor: pointer;
-  padding: var(--space-1);
-  border-radius: var(--radius-sm);
+  padding: var(--space-2);
+  border-radius: var(--radius-full);
   transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .mobile-wallet-close:hover {
@@ -2901,18 +2928,22 @@ footer .network-badge::before {
   background: var(--bg-elevated);
 }
 
+.mobile-wallet-close:active {
+  transform: scale(0.95);
+}
+
 .mobile-wallet-subtitle {
   font-size: var(--text-sm);
   color: var(--text-secondary);
-  padding: var(--space-2) var(--space-4);
+  padding: var(--space-3) var(--space-4);
   margin: 0;
 }
 
 .mobile-wallet-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-2);
-  padding: var(--space-3) var(--space-4);
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+  padding: var(--space-4);
 }
 
 .mobile-wallet-option {
@@ -2923,47 +2954,72 @@ footer .network-badge::before {
   padding: var(--space-3);
   background: var(--bg-elevated);
   border: 1px solid var(--border-default);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-lg);
   cursor: pointer;
   transition: all var(--transition-fast);
 }
 
 .mobile-wallet-option:hover {
-  background: rgba(131, 110, 249, 0.1);
+  background: rgba(131, 110, 249, 0.12);
   border-color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(131, 110, 249, 0.2);
 }
 
 .mobile-wallet-option:active {
   background: rgba(131, 110, 249, 0.2);
-  transform: scale(0.98);
+  transform: translateY(0) scale(0.98);
 }
 
 .mobile-wallet-logo {
-  width: 40px;
-  height: 40px;
+  width: 48px;
+  height: 48px;
   object-fit: contain;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 4px;
 }
 
 .mobile-wallet-name {
-  font-size: var(--text-sm);
-  font-weight: 500;
+  font-size: var(--text-xs);
+  font-weight: 600;
   color: var(--text-primary);
   text-align: center;
+  line-height: 1.2;
 }
 
 .mobile-wallet-footer {
   font-size: var(--text-xs);
   color: var(--text-secondary);
   text-align: center;
-  padding: var(--space-3) var(--space-4);
-  padding-top: 0;
+  padding: var(--space-4);
+  padding-top: var(--space-2);
   margin: 0;
+  border-top: 1px solid var(--border-default);
+  background: rgba(0, 0, 0, 0.1);
 }
 
 .mobile-wallet-footer a {
   color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.mobile-wallet-footer a:hover {
   text-decoration: underline;
+}
+
+/* Responsive: 2 columns on very small screens */
+@media (max-width: 360px) {
+  .mobile-wallet-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-2);
+  }
+
+  .mobile-wallet-logo {
+    width: 40px;
+    height: 40px;
+  }
 }
 
 /* ==========================================================================

@@ -1,6 +1,6 @@
 version: '3.8'
 
-# Development configuration with hot-reloading
+# Development configuration - Backend only (frontend runs locally with npm run dev)
 services:
   # Backend API Service (Development)
   backend:
@@ -19,25 +19,6 @@ services:
     volumes:
       - ./backend:/app
       - /app/node_modules
-    networks:
-      - wordle-network-dev
-
-  # Frontend Web Service (Development)
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile.dev
-    container_name: wordle-royale-frontend-dev
-    restart: unless-stopped
-    ports:
-      - "5173:5173"
-    environment:
-      - VITE_API_URL=http://localhost:3001
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
-    depends_on:
-      - backend
     networks:
       - wordle-network-dev
 

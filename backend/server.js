@@ -21,7 +21,9 @@ const ALLOWED_ORIGINS = [
   'http://localhost:5173',
   'http://localhost:5174',
   'http://localhost:3000',
-  // Add your production domain here
+  // Production domains (Amplify)
+  'https://main.dcfw70ks4eq5w.amplifyapp.com',
+  'https://test.dzobo9euwqgpg.amplifyapp.com',
 ];
 
 // Rate limiting config
@@ -45,6 +47,11 @@ const SERVER_SECRET = process.env.SERVER_SECRET || crypto.randomBytes(32).toStri
 // ═══════════════════════════════════════════════════════════════════════════
 // MIDDLEWARE
 // ═══════════════════════════════════════════════════════════════════════════
+
+// Health check - MUST be before CORS middleware for App Runner health checks
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok', timestamp: Date.now() });
+});
 
 // CORS - only allow specific origins
 app.use(cors({
@@ -228,11 +235,6 @@ async function signGameResult(resolver, gameId, winner, guessCount) {
 // API ENDPOINTS
 // ═══════════════════════════════════════════════════════════════════════════
 
-// Health check
-app.get('/health', (req, res) => {
-  res.json({ status: 'ok', timestamp: Date.now() });
-});
-
 // Get resolver address
 app.get('/api/resolver', (req, res) => {
   if (!RESOLVER_PRIVATE_KEY) {
@@ -337,11 +339,7 @@ app.post('/api/game/guess', (req, res) => {
 
     const upperGuess = guess.toUpperCase();
 
-    // Check if the word is in the valid words list
-    if (!WORDS.includes(upperGuess)) {
-      return res.status(400).json({ error: 'Not in word list', code: 'INVALID_WORD' });
-    }
-
+    // Accept any 5-letter word (no dictionary validation)
     const result = evaluateGuess(upperGuess, session.word);
     session.guesses.push({ guess: upperGuess, result, timestamp: Date.now() });
 
@@ -504,7 +502,7 @@ setInterval(() => {
 // START SERVER
 // ═══════════════════════════════════════════════════════════════════════════
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`
 ╔═══════════════════════════════════════════════════════════════╗
 ║           WORDLE ROYALE FREE - BACKEND SERVER                 ║

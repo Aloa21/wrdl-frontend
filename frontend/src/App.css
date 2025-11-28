@@ -1254,6 +1254,11 @@ h2::before {
   display: none;
 }
 
+.title-dot {
+  color: white;
+  -webkit-text-fill-color: white;
+}
+
 .homepage-desc {
   font-size: var(--text-base);
   margin-bottom: var(--space-4);
@@ -1338,11 +1343,18 @@ h2::before {
 
 .homepage-play-btn {
   background: white;
-  color: var(--color-primary);
   padding: var(--space-3) var(--space-6);
   font-size: var(--text-lg);
   font-weight: 700;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  background-clip: padding-box;
+}
+
+.homepage-play-btn span {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .homepage-play-btn:hover {
@@ -1428,7 +1440,7 @@ h2::before {
   background: var(--bg-surface);
   border-radius: var(--radius-lg);
   border: 1px solid var(--border-default);
-  padding: clamp(var(--space-2), 2vh, var(--space-6)) clamp(var(--space-2), 2vw, var(--space-4));
+  padding: clamp(var(--space-4), 4vh, var(--space-8)) clamp(var(--space-2), 2vw, var(--space-4));
   min-height: 0;
   overflow: hidden;
 }

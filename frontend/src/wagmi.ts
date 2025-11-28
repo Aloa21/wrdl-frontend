@@ -34,8 +34,8 @@ export const config = createConfig({
       metadata: {
         name: 'WRDL - Wordle on Monad',
         description: 'Play Wordle on Monad blockchain',
-        url: typeof window !== 'undefined' ? window.location.origin : 'https://wrdl.online',
-        icons: [typeof window !== 'undefined' ? `${window.location.origin}/wrdl-icon.svg` : 'https://wrdl.online/wrdl-icon.svg'],
+        url: typeof window !== 'undefined' ? window.location.origin : 'https://wrdl.fun',
+        icons: [typeof window !== 'undefined' ? `${window.location.origin}/wrdl-icon.svg` : 'https://wrdl.fun/wrdl-icon.svg'],
       },
       showQrModal: false, // We handle deep linking ourselves
     }),

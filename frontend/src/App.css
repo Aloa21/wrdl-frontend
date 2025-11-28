@@ -334,7 +334,17 @@ h1 {
 
 /* Header Divider */
 .header-divider {
-  display: none;
+  width: 1px;
+  height: 24px;
+  background: var(--border-default);
+  margin: 0 var(--space-2);
+}
+
+/* Header Wallet Button - Large */
+.header-wallet-btn-lg {
+  font-size: var(--text-sm);
+  padding: var(--space-2) var(--space-4);
+  min-height: 40px;
 }
 
 /* ==========================================================================
@@ -1289,6 +1299,63 @@ h2::before {
 .homepage-buy-btn:hover {
   background: #1a1a1f;
   transform: translateY(-2px);
+}
+
+/* Alternative Homepage - Play Version */
+.homepage-left-play {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+  background-size: 200% 200%;
+  animation: gradientShift 8s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.homepage-left-play .homepage-title {
+  color: white;
+}
+
+.homepage-left-play .homepage-desc {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.homepage-left-play .homepage-powered-by {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.homepage-left-play .homepage-powered-by .monad-logo {
+  filter: brightness(0) invert(1);
+}
+
+.homepage-play-btn {
+  background: white;
+  color: var(--color-primary);
+  padding: var(--space-3) var(--space-6);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.homepage-play-btn:hover {
+  background: #f0f0f0;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
+}
+
+.homepage-free-info {
+  font-size: var(--text-sm);
+  color: rgba(255, 255, 255, 0.8);
+  margin: var(--space-3) 0 0 0;
+  font-weight: 500;
 }
 
 .homepage-bottom {

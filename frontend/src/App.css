@@ -1297,10 +1297,10 @@ h2::before {
 .homepage-buttons-row {
   display: flex;
   flex-direction: row;
-  gap: var(--space-3);
+  gap: var(--space-2);
   justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
 }
 
 /* Mobile: smaller powered by */
@@ -1312,6 +1312,37 @@ h2::before {
 
   .homepage-left-play .homepage-powered-by .monad-logo {
     height: 14px;
+  }
+}
+
+/* Small mobile: smaller buttons to stay inline */
+@media (max-width: 400px) {
+  .homepage-buttons-row .btn {
+    padding: var(--space-2) var(--space-3);
+    font-size: var(--text-sm);
+    min-height: 36px;
+  }
+
+  /* Smaller header elements on very small screens */
+  h1 {
+    font-size: var(--text-sm);
+  }
+
+  .network-badge {
+    font-size: 6px;
+    padding: 1px 3px;
+  }
+
+  .network-badge::before {
+    width: 3px;
+    height: 3px;
+  }
+
+  .header-wallet-btn {
+    font-size: 7px;
+    padding: 1px 4px;
+    min-height: 18px;
+    height: 18px;
   }
 }
 
@@ -1475,7 +1506,8 @@ h2::before {
   width: 100%;
   height: 100%;
   box-sizing: border-box;
-  padding: clamp(var(--space-10), 6vh, var(--space-12)) 0;
+  padding: clamp(var(--space-6), 4vh, var(--space-10)) 0;
+  gap: clamp(var(--space-4), 3vh, var(--space-8));
   overflow: hidden;
 }
 
@@ -1484,6 +1516,7 @@ h2::before {
   text-align: center;
   flex-shrink: 0;
   flex: 0 0 auto;
+  margin-bottom: clamp(var(--space-2), 1.5vh, var(--space-4));
 }
 
 .mockup-title {
@@ -1508,6 +1541,7 @@ h2::before {
 .mockup-footer {
   flex: 0 0 auto;
   text-align: center;
+  margin-top: clamp(var(--space-2), 1.5vh, var(--space-4));
 }
 
 .mockup-reward-info {
@@ -2128,11 +2162,51 @@ footer .network-badge::before {
 /* Mobile-specific adjustments for How It Works card */
 @media (max-width: 767px) {
   .how-it-works-card {
-    padding: 2px 4px;
+    padding: 4px 6px;
   }
 
   .how-it-works-card h2 {
     font-size: var(--text-xs);
+    margin-bottom: 4px;
+  }
+
+  .how-it-works-card .how-steps {
+    gap: clamp(4px, 1.5vh, 12px);
+    justify-content: flex-start;
+  }
+
+  .how-step {
+    padding: clamp(4px, 1vh, 10px) clamp(6px, 1.5vw, 12px);
+    gap: var(--space-2);
+    flex: 0 0 auto;
+  }
+
+  .step-icon {
+    width: clamp(16px, 4vw, 22px);
+    height: clamp(16px, 4vw, 22px);
+    font-size: clamp(8px, 2vw, 12px);
+  }
+
+  .step-content h4 {
+    font-size: clamp(10px, 2.5vw, 13px);
+    margin-bottom: 0;
+    line-height: 1.2;
+  }
+
+  .step-content p {
+    font-size: clamp(8px, 2vw, 11px);
+    line-height: 1.2;
+  }
+}
+
+/* Extra small height screens (iPhone SE 375x667, etc) */
+@media (max-width: 767px) and (max-height: 667px) {
+  .how-it-works-card {
+    padding: 2px 4px;
+  }
+
+  .how-it-works-card h2 {
+    font-size: 9px;
     margin-bottom: 2px;
   }
 
@@ -2142,24 +2216,57 @@ footer .network-badge::before {
 
   .how-step {
     padding: 4px 6px;
-    gap: var(--space-2);
   }
 
   .step-icon {
-    width: 18px;
-    height: 18px;
-    font-size: 10px;
+    width: 16px;
+    height: 16px;
+    font-size: 9px;
   }
 
   .step-content h4 {
-    font-size: 11px;
-    margin-bottom: 0;
-    line-height: 1.2;
+    font-size: 10px;
   }
 
   .step-content p {
-    font-size: 9px;
+    font-size: 8px;
     line-height: 1.2;
+  }
+
+  /* Hide header and footer in mockup card, show only grid + legend */
+  .mockup-header,
+  .mockup-footer {
+    display: none;
+  }
+
+  .mockup-game-area {
+    padding: 0;
+  }
+
+  .mockup-grid {
+    gap: 2px;
+  }
+
+  .mockup-tile {
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+  }
+
+  .mockup-legend {
+    margin-top: 4px;
+    gap: 2px;
+  }
+
+  .legend-item {
+    font-size: 8px;
+    gap: 2px;
+  }
+
+  .legend-tile {
+    width: 14px;
+    height: 14px;
+    font-size: 8px;
   }
 }
 

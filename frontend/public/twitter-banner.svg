@@ -1,0 +1,114 @@
+<svg width="1500" height="500" viewBox="0 0 1500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background with gradient -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#09090B"/>
+      <stop offset="100%" style="stop-color:#18181B"/>
+    </linearGradient>
+    <linearGradient id="primaryGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#836EF9"/>
+      <stop offset="100%" style="stop-color:#00D4AA"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1500" height="500" fill="url(#bgGradient)"/>
+
+  <!-- Decorative gradient orbs -->
+  <ellipse cx="200" cy="100" rx="300" ry="200" fill="#836EF9" opacity="0.08"/>
+  <ellipse cx="1300" cy="400" rx="250" ry="180" fill="#00D4AA" opacity="0.06"/>
+
+  <!-- Center: Wordle grid mockup -->
+  <g transform="translate(594, 90)">
+    <!-- Row 1: WRDL! all green -->
+    <g transform="translate(0, 0)">
+      <rect x="0" y="0" width="56" height="56" rx="8" fill="#22C55E"/>
+      <text x="28" y="38" font-family="Arial Black, sans-serif" font-size="28" fill="white" text-anchor="middle">W</text>
+
+      <rect x="64" y="0" width="56" height="56" rx="8" fill="#22C55E"/>
+      <text x="92" y="38" font-family="Arial Black, sans-serif" font-size="28" fill="white" text-anchor="middle">R</text>
+
+      <rect x="128" y="0" width="56" height="56" rx="8" fill="#22C55E"/>
+      <text x="156" y="38" font-family="Arial Black, sans-serif" font-size="28" fill="white" text-anchor="middle">D</text>
+
+      <rect x="192" y="0" width="56" height="56" rx="8" fill="#22C55E"/>
+      <text x="220" y="38" font-family="Arial Black, sans-serif" font-size="28" fill="white" text-anchor="middle">L</text>
+
+      <rect x="256" y="0" width="56" height="56" rx="8" fill="#22C55E"/>
+      <text x="284" y="38" font-family="Arial Black, sans-serif" font-size="28" fill="white" text-anchor="middle">!</text>
+    </g>
+
+    <!-- Row 2 -->
+    <g transform="translate(0, 64)">
+      <rect x="0" y="0" width="56" height="56" rx="8" fill="#3F3F46"/>
+      <text x="28" y="38" font-family="Arial Black, sans-serif" font-size="28" fill="white" text-anchor="middle">P</text>
+
+      <rect x="64" y="0" width="56" height="56" rx="8" fill="#EAB308"/>
+      <text x="92" y="38" font-family="Arial Black, sans-serif" font-size="28" fill="#09090B" text-anchor="middle">L</text>
+
+      <rect x="128" y="0" width="56" height="56" rx="8" fill="#3F3F46"/>
+      <text x="156" y="38" font-family="Arial Black, sans-serif" font-size="28" fill="white" text-anchor="middle">A</text>
+
+      <rect x="192" y="0" width="56" height="56" rx="8" fill="#3F3F46"/>
+      <text x="220" y="38" font-family="Arial Black, sans-serif" font-size="28" fill="white" text-anchor="middle">Y</text>
+
+      <rect x="256" y="0" width="56" height="56" rx="8" fill="transparent" stroke="#3F3F46" stroke-width="2" stroke-dasharray="4 4"/>
+    </g>
+
+    <!-- Row 3 -->
+    <g transform="translate(0, 128)">
+      <rect x="0" y="0" width="56" height="56" rx="8" fill="transparent" stroke="#3F3F46" stroke-width="2" stroke-dasharray="4 4"/>
+      <rect x="64" y="0" width="56" height="56" rx="8" fill="transparent" stroke="#3F3F46" stroke-width="2" stroke-dasharray="4 4"/>
+      <rect x="128" y="0" width="56" height="56" rx="8" fill="transparent" stroke="#3F3F46" stroke-width="2" stroke-dasharray="4 4"/>
+      <rect x="192" y="0" width="56" height="56" rx="8" fill="transparent" stroke="#3F3F46" stroke-width="2" stroke-dasharray="4 4"/>
+      <rect x="256" y="0" width="56" height="56" rx="8" fill="transparent" stroke="#3F3F46" stroke-width="2" stroke-dasharray="4 4"/>
+    </g>
+
+    <!-- Row 4 -->
+    <g transform="translate(0, 192)">
+      <rect x="0" y="0" width="56" height="56" rx="8" fill="transparent" stroke="#3F3F46" stroke-width="2" stroke-dasharray="4 4"/>
+      <rect x="64" y="0" width="56" height="56" rx="8" fill="transparent" stroke="#3F3F46" stroke-width="2" stroke-dasharray="4 4"/>
+      <rect x="128" y="0" width="56" height="56" rx="8" fill="transparent" stroke="#3F3F46" stroke-width="2" stroke-dasharray="4 4"/>
+      <rect x="192" y="0" width="56" height="56" rx="8" fill="transparent" stroke="#3F3F46" stroke-width="2" stroke-dasharray="4 4"/>
+      <rect x="256" y="0" width="56" height="56" rx="8" fill="transparent" stroke="#3F3F46" stroke-width="2" stroke-dasharray="4 4"/>
+    </g>
+  </g>
+
+  <!-- Left side: Logo and tagline -->
+  <g transform="translate(80, 175)">
+    <!-- Logo text -->
+    <text x="0" y="60" font-family="Arial Black, sans-serif" font-size="64" font-weight="900" fill="url(#primaryGradient)">wrdl.fun</text>
+
+    <!-- Tagline -->
+    <text x="0" y="105" font-family="Arial, sans-serif" font-size="20" fill="#A1A1AA">Play Free. Guess Words. Earn WRDL.</text>
+  </g>
+
+  <!-- Right side: Monad branding -->
+  <g transform="translate(1100, 200)">
+    <!-- "Powered by" text -->
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="14" fill="#71717A">Powered by</text>
+
+    <!-- Monad logo (stylized M) -->
+    <g transform="translate(0, 20)">
+      <rect x="0" y="0" width="200" height="60" rx="8" fill="#27272A" stroke="#3F3F46" stroke-width="1"/>
+      <!-- Monad text -->
+      <text x="100" y="40" font-family="Arial Black, sans-serif" font-size="28" fill="#FAFAFA" text-anchor="middle">MONAD</text>
+    </g>
+
+    <!-- Network badge -->
+    <g transform="translate(40, 100)">
+      <rect x="0" y="0" width="120" height="24" rx="12" fill="#1a1a1f" stroke="#3F3F46" stroke-width="1"/>
+      <circle cx="12" cy="12" r="4" fill="#00D4AA"/>
+      <text x="24" y="16" font-family="Arial, sans-serif" font-size="10" fill="#FAFAFA">Mainnet Live</text>
+    </g>
+  </g>
+
+  <!-- Decorative dots -->
+  <circle cx="550" cy="50" r="4" fill="#836EF9" opacity="0.5"/>
+  <circle cx="580" cy="70" r="3" fill="#00D4AA" opacity="0.4"/>
+  <circle cx="520" cy="80" r="5" fill="#836EF9" opacity="0.3"/>
+
+  <circle cx="950" cy="450" r="4" fill="#00D4AA" opacity="0.5"/>
+  <circle cx="920" cy="430" r="3" fill="#836EF9" opacity="0.4"/>
+  <circle cx="980" cy="420" r="5" fill="#00D4AA" opacity="0.3"/>
+</svg>

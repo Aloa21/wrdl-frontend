@@ -12,7 +12,7 @@ const app = express();
 
 const PORT = process.env.PORT || 3001;
 const RESOLVER_PRIVATE_KEY = process.env.RESOLVER_PRIVATE_KEY;
-const CONTRACT_ADDRESS = '0xef70520518364652ed718869cfAd1E1a0499f603'; // WordleRoyaleFree
+const CONTRACT_ADDRESS = '0x1ffe9E2885429dA193967591Feb3e2Cb825aD7EC'; // WordleRoyaleFree
 const CHAIN_ID = 143; // Monad Mainnet
 const RPC_URL = 'https://rpc.monad.xyz';
 

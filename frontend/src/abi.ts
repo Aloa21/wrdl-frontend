@@ -1,5 +1,5 @@
 // WordleRoyaleFree - Free-to-Play with WRDLE prizes
-export const WORDLE_ROYALE_ADDRESS = '0xef70520518364652ed718869cfAd1E1a0499f603' as const
+export const WORDLE_ROYALE_ADDRESS = '0x1ffe9E2885429dA193967591Feb3e2Cb825aD7EC' as const
 
 // WRDLE Token
 export const WORDLE_TOKEN_ADDRESS = '0xa1d2c0ea74dc49588078D234B68d5Ca527f91c67' as const

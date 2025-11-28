@@ -247,6 +247,7 @@ function App() {
   // Mobile wallet connection state
   const [showMobileWalletSelector, setShowMobileWalletSelector] = useState(false)
   const [isConnecting, setIsConnecting] = useState(false)
+  const [pendingWcUri, setPendingWcUri] = useState<string | null>(null)
 
   // Fetch resolver address from backend
   useEffect(() => {
@@ -384,15 +385,19 @@ function App() {
   // Handler for mobile wallet selection
   const handleMobileWalletSelect = (walletId: string) => {
     console.log('User selected wallet:', walletId)
+    console.log('Pending WC URI available:', pendingWcUri ? 'YES' : 'NO')
+
     savePreferredMobileWallet(walletId)
-    setShowMobileWalletSelector(false)
 
-    // Start WalletConnect with the selected wallet
-    startWalletConnect(walletId)
+    // If we have a pending WC URI, open the deep link immediately
+    if (pendingWcUri) {
+      console.log('Opening deep link with pending URI for wallet:', walletId)
+      openWalletDeepLink(walletId, pendingWcUri)
+      setPendingWcUri(null)
+    } else {
+      console.error('No pending WC URI available!')
+    }
   }
-
-  // State to track selected wallet for mobile connection
-  const [selectedMobileWallet, setSelectedMobileWallet] = useState<string | null>(null)
 
   const handleConnect = async () => {
     if (isConnecting) return
@@ -401,18 +406,57 @@ function App() {
     console.log(`Device: ${isOnMobile ? 'Mobile' : 'Desktop'}`)
 
     if (isOnMobile) {
-      // Check for preferred wallet first
-      const preferredWallet = getPreferredMobileWallet()
+      // Mobile: Start WalletConnect first, then show modal or open preferred wallet
+      const wcConnector = connectors.find(c => c.id === 'walletConnect' || c.type === 'walletConnect')
+      if (!wcConnector) {
+        console.error('WalletConnect connector not found')
+        return
+      }
 
-      if (preferredWallet) {
-        // User has a preferred wallet, start WalletConnect directly
-        console.log(`Using preferred wallet: ${preferredWallet.name}`)
-        setSelectedMobileWallet(preferredWallet.id)
-        startWalletConnect(preferredWallet.id)
-      } else {
-        // No preferred wallet, show selector FIRST
-        console.log('No preferred wallet, showing selector')
-        setShowMobileWalletSelector(true)
+      setIsConnecting(true)
+      try {
+        // Get the provider to listen for URI
+        const wcProvider = await wcConnector.getProvider?.()
+        if (!wcProvider) {
+          console.error('WalletConnect provider not available')
+          setIsConnecting(false)
+          return
+        }
+
+        // Check for preferred wallet
+        const preferredWallet = getPreferredMobileWallet()
+
+        // Listen for display_uri event
+        let uriCaptured = false
+        const handleDisplayUri = (uri: string) => {
+          if (uriCaptured) return
+          uriCaptured = true
+          console.log('WalletConnect URI captured!')
+          console.log('URI (first 50 chars):', uri.substring(0, 50) + '...')
+
+          if (preferredWallet) {
+            // User has a preferred wallet, open it directly
+            console.log(`Opening preferred wallet: ${preferredWallet.name}`)
+            openWalletDeepLink(preferredWallet.id, uri)
+          } else {
+            // No preferred wallet, save URI and show selector
+            console.log('No preferred wallet, saving URI and showing selector')
+            setPendingWcUri(uri)
+            setShowMobileWalletSelector(true)
+          }
+        }
+
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (wcProvider as any).on?.('display_uri', handleDisplayUri)
+
+        // Start connection - this will trigger display_uri event
+        console.log('Starting WalletConnect connection...')
+        await connect({ connector: wcConnector })
+        console.log('Connection initiated!')
+      } catch (error) {
+        console.error('Connection failed:', error)
+      } finally {
+        setIsConnecting(false)
       }
     } else {
       // Desktop: use injected wallet
@@ -420,47 +464,6 @@ function App() {
       if (injected) {
         connect({ connector: injected })
       }
-    }
-  }
-
-  // Start WalletConnect and open the selected wallet
-  const startWalletConnect = async (walletId: string) => {
-    const wcConnector = connectors.find(c => c.id === 'walletConnect' || c.type === 'walletConnect')
-    if (!wcConnector) {
-      console.error('WalletConnect connector not found')
-      return
-    }
-
-    setIsConnecting(true)
-    try {
-      // Get the provider to listen for URI
-      const wcProvider = await wcConnector.getProvider?.()
-      if (!wcProvider) {
-        console.error('WalletConnect provider not available')
-        setIsConnecting(false)
-        return
-      }
-
-      // Listen for display_uri event
-      let uriCaptured = false
-      const handleDisplayUri = (uri: string) => {
-        if (uriCaptured) return
-        uriCaptured = true
-        console.log('WalletConnect URI captured, opening wallet:', walletId)
-        openWalletDeepLink(walletId, uri)
-      }
-
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (wcProvider as any).on?.('display_uri', handleDisplayUri)
-
-      // Start connection
-      await connect({ connector: wcConnector })
-      console.log('Connection initiated!')
-    } catch (error) {
-      console.error('Connection failed:', error)
-    } finally {
-      setIsConnecting(false)
-      setSelectedMobileWallet(null)
     }
   }
 

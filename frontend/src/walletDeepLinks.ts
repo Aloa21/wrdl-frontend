@@ -10,6 +10,7 @@ export interface WalletDeepLink {
   name: string;
   deepLink: (uri: string) => string;
   logo?: string;
+  isLikelyInstalled?: () => boolean;
 }
 
 /**
@@ -19,16 +20,34 @@ export const MOBILE_WALLETS: WalletDeepLink[] = [
   {
     id: 'metamask',
     name: 'MetaMask',
-    logo: '/icons/wallets/metamask.svg',
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/MetaMask_Fox.svg/512px-MetaMask_Fox.svg.png',
     deepLink: (uri: string) => {
       // MetaMask mobile deep link format
       return `https://metamask.app.link/wc?uri=${encodeURIComponent(uri)}`;
     },
   },
   {
+    id: 'binance',
+    name: 'Binance',
+    logo: 'https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/smartchain/info/logo.png',
+    deepLink: (uri: string) => {
+      // Binance wallet deep link format
+      return `https://app.binance.com/wc?uri=${encodeURIComponent(uri)}`;
+    },
+  },
+  {
+    id: 'rabby',
+    name: 'Rabby',
+    logo: 'https://raw.githubusercontent.com/RabbyHub/Rabby/develop/src/ui/assets/dashboard/rabby.svg',
+    deepLink: (uri: string) => {
+      // Rabby mobile deep link format
+      return `https://rabby.io/wc?uri=${encodeURIComponent(uri)}`;
+    },
+  },
+  {
     id: 'trust',
     name: 'Trust Wallet',
-    logo: '/icons/wallets/trust.svg',
+    logo: 'https://avatars.githubusercontent.com/u/32179889?s=200&v=4',
     deepLink: (uri: string) => {
       // Trust Wallet deep link format
       return `https://link.trustwallet.com/wc?uri=${encodeURIComponent(uri)}`;
@@ -37,37 +56,37 @@ export const MOBILE_WALLETS: WalletDeepLink[] = [
   {
     id: 'phantom',
     name: 'Phantom',
-    logo: '/icons/wallets/phantom.svg',
+    logo: 'https://avatars.githubusercontent.com/u/78782331?s=200&v=4',
     deepLink: (uri: string) => {
       // Phantom wallet deep link format (supports multi-chain including EVM)
       return `https://phantom.app/ul/v1/browse/${encodeURIComponent(`wc:${uri}`)}?cluster=mainnet-beta`;
     },
   },
   {
-    id: 'rabby',
-    name: 'Rabby',
-    logo: '/icons/wallets/rabby.svg',
-    deepLink: (uri: string) => {
-      // Rabby mobile deep link format
-      return `https://rabby.io/wc?uri=${encodeURIComponent(uri)}`;
-    },
-  },
-  {
     id: 'rainbow',
     name: 'Rainbow',
-    logo: '/icons/wallets/rainbow.svg',
+    logo: 'https://avatars.githubusercontent.com/u/48327834?s=200&v=4',
     deepLink: (uri: string) => {
       // Rainbow wallet deep link format
       return `https://rnbwapp.com/wc?uri=${encodeURIComponent(uri)}`;
     },
   },
   {
-    id: 'coinbase',
-    name: 'Coinbase',
-    logo: '/icons/wallets/coinbase.svg',
+    id: 'tokenpocket',
+    name: 'TokenPocket',
+    logo: '/icons/wallets/token_pocket.svg',
     deepLink: (uri: string) => {
-      // Coinbase Wallet deep link format
-      return `https://go.cb-w.com/wc?uri=${encodeURIComponent(uri)}`;
+      // TokenPocket deep link format
+      return `tpoutside://wc?uri=${encodeURIComponent(uri)}`;
+    },
+  },
+  {
+    id: 'safepal',
+    name: 'SafePal',
+    logo: '/icons/wallets/safepal.svg',
+    deepLink: (uri: string) => {
+      // SafePal deep link format
+      return `safepalwallet://wc?uri=${encodeURIComponent(uri)}`;
     },
   },
 ];
@@ -121,17 +140,31 @@ export function openWalletDeepLink(walletId: string, wcUri: string): boolean {
     console.log(`🔗 Deep link generated for ${wallet.name}:`, deepLinkUrl);
     console.log(`📏 Deep link length: ${deepLinkUrl.length} characters`);
 
-    // Open deep link
-    console.log(`🚀 Calling window.location.href with deep link...`);
+    // Open deep link in new window/tab
+    console.log(`🚀 Calling window.open with deep link...`);
+    const openedWindow = window.open(deepLinkUrl, '_blank');
+    console.log(`📱 window.open returned:`, openedWindow ? 'Window object' : 'null');
 
-    // Use location.href for better mobile compatibility
-    window.location.href = deepLinkUrl;
+    if (!openedWindow) {
+      console.warn(`⚠️ window.open returned null - possible popup blocker`);
+    }
 
     return true;
   } catch (error) {
     console.error(`❌ Error opening deep link for ${wallet.name}:`, error);
     return false;
   }
+}
+
+/**
+ * Get popular mobile wallets list
+ */
+export function getPopularMobileWallets(): WalletDeepLink[] {
+  const popularOrder = ['metamask', 'binance', 'rabby', 'trust', 'phantom', 'rainbow', 'tokenpocket', 'safepal'];
+
+  return popularOrder
+    .map(id => MOBILE_WALLETS.find(w => w.id === id))
+    .filter((w): w is WalletDeepLink => w !== undefined);
 }
 
 /**
@@ -169,6 +202,10 @@ export function getPreferredMobileWallet(): WalletDeepLink | null {
     return MOBILE_WALLETS.find(w => w.id === 'trust') || null;
   }
 
+  if (userAgent.includes('tokenpocket')) {
+    return MOBILE_WALLETS.find(w => w.id === 'tokenpocket') || null;
+  }
+
   // 3. Default: null (show selection list)
   return null;
 }
@@ -199,4 +236,12 @@ export function clearPreferredMobileWallet(): void {
   } catch (error) {
     console.warn('⚠️ Could not clear wallet preference:', error);
   }
+}
+
+/**
+ * Helper to format WalletConnect URI if needed
+ */
+export function formatWalletConnectUri(uri: string): string {
+  // Remove any "wc:" prefix if already present
+  return uri.replace(/^wc:/, '');
 }

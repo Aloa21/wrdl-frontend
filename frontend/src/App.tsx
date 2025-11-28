@@ -97,7 +97,7 @@ function MockupGame() {
   useEffect(() => {
     if (gameScreen !== 'playing') return
 
-    let timeout: NodeJS.Timeout
+    let timeout: ReturnType<typeof setTimeout>
 
     const runAnimation = () => {
       setMockupState(prev => {

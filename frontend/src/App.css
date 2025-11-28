@@ -2128,7 +2128,7 @@ footer .network-badge::before {
 /* Mobile-specific adjustments for How It Works card */
 @media (max-width: 767px) {
   .how-it-works-card {
-    padding: var(--space-2);
+    padding: 2px;
   }
 
   .how-it-works-card h2 {
@@ -2137,7 +2137,7 @@ footer .network-badge::before {
   }
 
   .how-it-works-card .how-steps {
-    gap: var(--space-1);
+    gap: var(--space-2);
   }
 
   .how-step {

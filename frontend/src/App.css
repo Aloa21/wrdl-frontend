@@ -2125,6 +2125,43 @@ footer .network-badge::before {
   line-height: 1.4;
 }
 
+/* Mobile-specific adjustments for How It Works card */
+@media (max-width: 767px) {
+  .how-it-works-card {
+    padding: var(--space-2);
+  }
+
+  .how-it-works-card h2 {
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-1);
+  }
+
+  .how-it-works-card .how-steps {
+    gap: var(--space-1);
+  }
+
+  .how-step {
+    padding: var(--space-1) var(--space-2);
+    gap: var(--space-2);
+  }
+
+  .step-icon {
+    width: 22px;
+    height: 22px;
+    font-size: var(--text-xs);
+  }
+
+  .step-content h4 {
+    font-size: var(--text-xs);
+    margin-bottom: 0;
+  }
+
+  .step-content p {
+    font-size: 10px;
+    line-height: 1.3;
+  }
+}
+
 /* ==========================================================================
    Mobile Layout - Scrollable Content
    ========================================================================== */

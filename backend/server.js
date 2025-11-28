@@ -24,6 +24,9 @@ const ALLOWED_ORIGINS = [
   // Production domains (Amplify)
   'https://main.dcfw70ks4eq5w.amplifyapp.com',
   'https://test.dzobo9euwqgpg.amplifyapp.com',
+  // Custom domains
+  'https://wrdl.fun',
+  'https://www.wrdl.fun',
 ];
 
 // Rate limiting config

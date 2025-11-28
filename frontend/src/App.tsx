@@ -444,10 +444,16 @@ function App() {
         setIsConnecting(false)
       }
     } else {
-      // Desktop: use injected wallet
+      // Desktop: try injected wallet first, fallback to WalletConnect
       const injected = connectors.find((c) => c.id === 'injected')
-      if (injected) {
+      if (injected && window.ethereum) {
         connect({ connector: injected })
+      } else {
+        // Fallback to WalletConnect for desktop without MetaMask
+        const wcConnector = connectors.find(c => c.id === 'walletConnect' || c.type === 'walletConnect')
+        if (wcConnector) {
+          connect({ connector: wcConnector })
+        }
       }
     }
   }

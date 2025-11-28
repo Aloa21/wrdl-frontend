@@ -873,40 +873,57 @@ function App() {
     </div>
   )
 
-  // Render Play Card
-  const renderPlayCard = () => (
-    <div className="card play-card">
-      <div className="card-content">
-        <div className="play-hero">
-          <div className="play-icon">🎮</div>
-          <h2 className="play-title">Play wrdl.fun</h2>
-
-          <div className="color-guide">
-            <div className="guide-item">
-              <span className="guide-tile correct">A</span>
-              <span>Correct spot</span>
-            </div>
-            <div className="guide-item">
-              <span className="guide-tile present">B</span>
-              <span>Wrong spot</span>
-            </div>
-            <div className="guide-item">
-              <span className="guide-tile absent">C</span>
-              <span>Not in word</span>
+  // Render Play Card (or loading state when auto-joining)
+  const renderPlayCard = () => {
+    // Show loading state when game is starting
+    if (isJoining || isJoinConfirming || hasAutoJoined) {
+      return (
+        <div className="card play-card">
+          <div className="card-content">
+            <div className="play-hero">
+              <div className="play-icon">🎮</div>
+              <h2 className="play-title">Starting Game...</h2>
+              <p className="play-subtitle">Registering on blockchain</p>
             </div>
           </div>
         </div>
-      </div>
+      )
+    }
 
-      <button
-        className="btn btn-success play-btn"
-        onClick={handleJoin}
-        disabled={isJoining || isJoinConfirming}
-      >
-        {isJoining || isJoinConfirming ? 'Starting...' : 'Play Now - FREE!'}
-      </button>
-    </div>
-  )
+    return (
+      <div className="card play-card">
+        <div className="card-content">
+          <div className="play-hero">
+            <div className="play-icon">🎮</div>
+            <h2 className="play-title">Play wrdl.fun</h2>
+
+            <div className="color-guide">
+              <div className="guide-item">
+                <span className="guide-tile correct">A</span>
+                <span>Correct spot</span>
+              </div>
+              <div className="guide-item">
+                <span className="guide-tile present">B</span>
+                <span>Wrong spot</span>
+              </div>
+              <div className="guide-item">
+                <span className="guide-tile absent">C</span>
+                <span>Not in word</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <button
+          className="btn btn-success play-btn"
+          onClick={handleJoin}
+          disabled={isJoining || isJoinConfirming}
+        >
+          {isJoining || isJoinConfirming ? 'Starting...' : 'Play Now - FREE!'}
+        </button>
+      </div>
+    )
+  }
 
   // Render Game Card (playing phase)
   const renderGameCard = () => (

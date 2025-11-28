@@ -370,30 +370,7 @@ function App() {
     }
   }, [isResolveConfirmed, addLog, refetchGameId, refetchStats, refetchTokenBalance, refetchIsResolved])
 
-  // Auto-start game when wallet connects
-  const [hasAutoJoined, setHasAutoJoined] = useState(false)
-  useEffect(() => {
-    if (isConnected && resolverAddress && gamePhase === 'lobby' && !hasAutoJoined && !isJoining && !isJoinConfirming) {
-      setHasAutoJoined(true)
-      // Small delay to ensure everything is loaded
-      setTimeout(() => {
-        joinGame({
-          address: WORDLE_ROYALE_ADDRESS,
-          abi: WORDLE_ROYALE_ABI,
-          functionName: 'join',
-          args: [resolverAddress],
-        })
-      }, 500)
-    }
-  }, [isConnected, resolverAddress, gamePhase, hasAutoJoined, isJoining, isJoinConfirming, joinGame])
-
-  // Reset auto-join flag when disconnected
-  useEffect(() => {
-    if (!isConnected) {
-      setHasAutoJoined(false)
-    }
-  }, [isConnected])
-
+  
   const handleJoin = () => {
     if (!resolverAddress) return addLog('Resolver not loaded yet', 'error')
     addLog('Joining free game...')
@@ -873,57 +850,40 @@ function App() {
     </div>
   )
 
-  // Render Play Card (or loading state when auto-joining)
-  const renderPlayCard = () => {
-    // Show loading state when game is starting
-    if (isJoining || isJoinConfirming || hasAutoJoined) {
-      return (
-        <div className="card play-card">
-          <div className="card-content">
-            <div className="play-hero">
-              <div className="play-icon">🎮</div>
-              <h2 className="play-title">Starting Game...</h2>
-              <p className="play-subtitle">Registering on blockchain</p>
+  // Render Play Card
+  const renderPlayCard = () => (
+    <div className="card play-card">
+      <div className="card-content">
+        <div className="play-hero">
+          <div className="play-icon">🎮</div>
+          <h2 className="play-title">Play wrdl.fun</h2>
+
+          <div className="color-guide">
+            <div className="guide-item">
+              <span className="guide-tile correct">A</span>
+              <span>Correct spot</span>
+            </div>
+            <div className="guide-item">
+              <span className="guide-tile present">B</span>
+              <span>Wrong spot</span>
+            </div>
+            <div className="guide-item">
+              <span className="guide-tile absent">C</span>
+              <span>Not in word</span>
             </div>
           </div>
         </div>
-      )
-    }
-
-    return (
-      <div className="card play-card">
-        <div className="card-content">
-          <div className="play-hero">
-            <div className="play-icon">🎮</div>
-            <h2 className="play-title">Play wrdl.fun</h2>
-
-            <div className="color-guide">
-              <div className="guide-item">
-                <span className="guide-tile correct">A</span>
-                <span>Correct spot</span>
-              </div>
-              <div className="guide-item">
-                <span className="guide-tile present">B</span>
-                <span>Wrong spot</span>
-              </div>
-              <div className="guide-item">
-                <span className="guide-tile absent">C</span>
-                <span>Not in word</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <button
-          className="btn btn-success play-btn"
-          onClick={handleJoin}
-          disabled={isJoining || isJoinConfirming}
-        >
-          {isJoining || isJoinConfirming ? 'Starting...' : 'Play Now - FREE!'}
-        </button>
       </div>
-    )
-  }
+
+      <button
+        className="btn btn-success play-btn"
+        onClick={handleJoin}
+        disabled={isJoining || isJoinConfirming}
+      >
+        {isJoining || isJoinConfirming ? 'Starting...' : 'Play Now - FREE!'}
+      </button>
+    </div>
+  )
 
   // Render Game Card (playing phase)
   const renderGameCard = () => (

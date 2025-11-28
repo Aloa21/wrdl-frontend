@@ -37,7 +37,7 @@ export const config = createConfig({
         url: typeof window !== 'undefined' ? window.location.origin : 'https://wrdl.fun',
         icons: [typeof window !== 'undefined' ? `${window.location.origin}/wrdl-icon.svg` : 'https://wrdl.fun/wrdl-icon.svg'],
       },
-      showQrModal: false, // We handle deep linking ourselves
+      showQrModal: true, // Show QR modal for desktop users without MetaMask
     }),
   ],
   transports: {

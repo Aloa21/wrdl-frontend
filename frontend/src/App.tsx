@@ -403,60 +403,86 @@ function App() {
     if (isConnecting) return
 
     const isOnMobile = isMobileDevice()
-    console.log(`Device: ${isOnMobile ? 'Mobile' : 'Desktop'}`)
+    console.log(`📱 Device: ${isOnMobile ? 'Mobile' : 'Desktop'}`)
+    console.log(`📋 Available connectors:`, connectors.map(c => ({ id: c.id, name: c.name, type: c.type })))
 
     if (isOnMobile) {
       // Mobile: Start WalletConnect first, then show modal or open preferred wallet
       const wcConnector = connectors.find(c => c.id === 'walletConnect' || c.type === 'walletConnect')
+      console.log(`🔍 WalletConnect connector found:`, wcConnector ? { id: wcConnector.id, name: wcConnector.name, type: wcConnector.type } : 'NOT FOUND')
+
       if (!wcConnector) {
-        console.error('WalletConnect connector not found')
+        console.error('❌ WalletConnect connector not found')
+        alert('WalletConnect not available')
         return
       }
 
       setIsConnecting(true)
       try {
         // Get the provider to listen for URI
+        console.log('🔄 Getting WalletConnect provider...')
         const wcProvider = await wcConnector.getProvider?.()
+        console.log('📦 WalletConnect provider:', wcProvider ? 'OBTAINED' : 'NULL')
+
         if (!wcProvider) {
-          console.error('WalletConnect provider not available')
+          console.error('❌ WalletConnect provider not available')
+          alert('WalletConnect provider not available')
           setIsConnecting(false)
           return
         }
 
         // Check for preferred wallet
         const preferredWallet = getPreferredMobileWallet()
+        console.log('💾 Preferred wallet:', preferredWallet ? preferredWallet.name : 'NONE')
 
         // Listen for display_uri event
         let uriCaptured = false
         const handleDisplayUri = (uri: string) => {
-          if (uriCaptured) return
+          console.log('🎯 handleDisplayUri CALLED!')
+          if (uriCaptured) {
+            console.log('⚠️ URI already captured, skipping')
+            return
+          }
           uriCaptured = true
-          console.log('WalletConnect URI captured!')
-          console.log('URI (first 50 chars):', uri.substring(0, 50) + '...')
+          console.log('🔗 WalletConnect URI captured!')
+          console.log('📏 URI length:', uri.length)
+          console.log('📝 URI (first 100 chars):', uri.substring(0, 100) + '...')
 
           if (preferredWallet) {
             // User has a preferred wallet, open it directly
-            console.log(`Opening preferred wallet: ${preferredWallet.name}`)
-            openWalletDeepLink(preferredWallet.id, uri)
+            console.log(`🚀 Opening preferred wallet: ${preferredWallet.name}`)
+            const success = openWalletDeepLink(preferredWallet.id, uri)
+            console.log(`✅ openWalletDeepLink returned:`, success)
           } else {
             // No preferred wallet, save URI and show selector
-            console.log('No preferred wallet, saving URI and showing selector')
+            console.log('📱 No preferred wallet, saving URI and showing selector')
             setPendingWcUri(uri)
             setShowMobileWalletSelector(true)
           }
         }
 
+        // Listen for display_uri event
+        console.log('👂 Setting up display_uri listener...')
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (wcProvider as any).on?.('display_uri', handleDisplayUri)
+        const provider = wcProvider as any
+        if (provider.on) {
+          provider.on('display_uri', handleDisplayUri)
+          console.log('✅ display_uri listener attached')
+        } else {
+          console.error('❌ Provider does not support .on() method')
+        }
 
         // Start connection - this will trigger display_uri event
-        console.log('Starting WalletConnect connection...')
-        await connect({ connector: wcConnector })
-        console.log('Connection initiated!')
+        console.log('🚀 Starting WalletConnect connection...')
+        connect({ connector: wcConnector })
+        console.log('✅ connect() called (not awaited)')
+
       } catch (error) {
-        console.error('Connection failed:', error)
+        console.error('❌ Connection failed:', error)
+        alert(`Connection error: ${error}`)
       } finally {
-        setIsConnecting(false)
+        // Don't set isConnecting to false here - the connection is still pending
+        // setIsConnecting(false)
       }
     } else {
       // Desktop: use injected wallet
@@ -466,6 +492,15 @@ function App() {
       }
     }
   }
+
+  // Reset isConnecting when connection succeeds or modal closes
+  useEffect(() => {
+    if (isConnected) {
+      setIsConnecting(false)
+      setShowMobileWalletSelector(false)
+      setPendingWcUri(null)
+    }
+  }, [isConnected])
 
   // Auto-switch to Monad when connected to wrong network
   useEffect(() => {

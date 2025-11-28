@@ -2,7 +2,7 @@
 export const WORDLE_ROYALE_ADDRESS = '0x1ffe9E2885429dA193967591Feb3e2Cb825aD7EC' as const
 
 // WRDLE Token
-export const WORDLE_TOKEN_ADDRESS = '0xa1d2c0ea74dc49588078D234B68d5Ca527f91c67' as const
+export const WORDLE_TOKEN_ADDRESS = '0xfE569A198cadA6E7b3B7C51a59b0A0C3b4157777' as const
 
 export const WORDLE_ROYALE_ABI = [
   // Events

@@ -1041,26 +1041,28 @@ function App() {
             <div className="homepage-message">
               <h2 className="homepage-title"><span className="title-dot">•</span> Play & Earn WRDL <span className="title-dot">•</span></h2>
               <p className="homepage-desc">
-                Guess the word, win tokens. Free to play, fun to master.
+                Guess the word, win tokens.
               </p>
-              <button
-                className="btn homepage-play-btn"
-                onClick={handleConnect}
-                disabled={isConnecting}
-              >
-                <span>{isConnecting ? 'Connecting...' : 'Start Playing'}</span>
-              </button>
+              <div className="homepage-buttons-row">
+                <button
+                  className="btn homepage-play-btn"
+                  onClick={handleConnect}
+                  disabled={isConnecting}
+                >
+                  <span>{isConnecting ? 'Connecting...' : 'Start Playing'}</span>
+                </button>
+                <a
+                  href="https://nad.fun/tokens/0xfE569A198cadA6E7b3B7C51a59b0A0C3b4157777"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn homepage-buy-btn"
+                >
+                  Buy WRDL
+                </a>
+              </div>
               <p className="homepage-free-info">
                 100% Free to Play
               </p>
-              <a
-                href="https://nad.fun/tokens/0xfE569A198cadA6E7b3B7C51a59b0A0C3b4157777"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn homepage-buy-btn"
-              >
-                Buy WRDL
-              </a>
             </div>
             <div className="homepage-bottom">
               <div className="homepage-powered-by">

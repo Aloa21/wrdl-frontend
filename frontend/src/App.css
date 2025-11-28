@@ -1240,7 +1240,6 @@ h2::before {
   justify-content: center;
   text-align: center;
   color: #09090B;
-  padding-top: var(--space-12);
 }
 
 .homepage-title {
@@ -1292,6 +1291,28 @@ h2::before {
   font-size: var(--text-sm);
   font-weight: 600;
   opacity: 0.8;
+}
+
+/* Buttons row - horizontal on all devices */
+.homepage-buttons-row {
+  display: flex;
+  flex-direction: row;
+  gap: var(--space-3);
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Mobile: smaller powered by */
+@media (max-width: 768px) {
+  .homepage-left-play .homepage-powered-by {
+    font-size: var(--text-xs);
+    opacity: 0.7;
+  }
+
+  .homepage-left-play .homepage-powered-by .monad-logo {
+    height: 14px;
+  }
 }
 
 .homepage-buy-btn {

@@ -370,6 +370,30 @@ function App() {
     }
   }, [isResolveConfirmed, addLog, refetchGameId, refetchStats, refetchTokenBalance, refetchIsResolved])
 
+  // Auto-start game when wallet connects
+  const [hasAutoJoined, setHasAutoJoined] = useState(false)
+  useEffect(() => {
+    if (isConnected && resolverAddress && gamePhase === 'lobby' && !hasAutoJoined && !isJoining && !isJoinConfirming) {
+      setHasAutoJoined(true)
+      // Small delay to ensure everything is loaded
+      setTimeout(() => {
+        joinGame({
+          address: WORDLE_ROYALE_ADDRESS,
+          abi: WORDLE_ROYALE_ABI,
+          functionName: 'join',
+          args: [resolverAddress],
+        })
+      }, 500)
+    }
+  }, [isConnected, resolverAddress, gamePhase, hasAutoJoined, isJoining, isJoinConfirming, joinGame])
+
+  // Reset auto-join flag when disconnected
+  useEffect(() => {
+    if (!isConnected) {
+      setHasAutoJoined(false)
+    }
+  }, [isConnected])
+
   const handleJoin = () => {
     if (!resolverAddress) return addLog('Resolver not loaded yet', 'error')
     addLog('Joining free game...')
@@ -444,17 +468,10 @@ function App() {
         setIsConnecting(false)
       }
     } else {
-      // Desktop: try injected wallet first, fallback to WalletConnect
+      // Desktop: use injected wallet
       const injected = connectors.find((c) => c.id === 'injected')
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      if (injected && (window as any).ethereum) {
+      if (injected) {
         connect({ connector: injected })
-      } else {
-        // Fallback to WalletConnect for desktop without MetaMask
-        const wcConnector = connectors.find(c => c.id === 'walletConnect' || c.type === 'walletConnect')
-        if (wcConnector) {
-          connect({ connector: wcConnector })
-        }
       }
     }
   }

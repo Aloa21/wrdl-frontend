@@ -472,8 +472,9 @@ h2::before {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: var(--space-1);
-  padding: var(--space-2) var(--space-3);
+  padding: var(--space-3) var(--space-3);
   border-radius: var(--radius-sm);
   border: 1px solid rgba(131, 110, 249, 0.4);
   flex: 1;
@@ -531,10 +532,7 @@ h2::before {
 }
 
 .wrdle-card .token-name {
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--text-secondary);
 }
 
 /* ==========================================================================
@@ -583,7 +581,7 @@ h2::before {
 
 .info-icon {
   position: absolute;
-  bottom: 1rem;
+  bottom: 0.5rem;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -2387,30 +2385,41 @@ footer {
 
 .footer-main {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
   gap: var(--space-3);
 }
 
 .footer-brand {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  text-align: left;
+}
+
+.footer-brand .logo {
+  display: flex;
   align-items: center;
-  gap: var(--space-2);
-  text-align: center;
 }
 
 .footer-brand .logo h1 {
-  font-size: var(--text-2xl);
+  font-size: var(--text-3xl);
   background: none;
   -webkit-background-clip: unset;
   -webkit-text-fill-color: white;
   background-clip: unset;
   color: white;
+  line-height: 1;
+  margin: 0;
 }
 
 .footer-tagline {
   color: rgba(255, 255, 255, 0.85);
   font-size: var(--text-sm);
+  margin: 0;
+  margin-top: var(--space-1);
 }
 
 .footer-links {
@@ -2418,11 +2427,14 @@ footer {
   flex-direction: column;
   gap: var(--space-3);
   align-items: center;
+  justify-content: center;
   text-align: center;
 }
 
 .footer-column {
   text-align: center;
+  display: flex;
+  align-items: center;
 }
 
 .footer-column h4 {
@@ -2465,6 +2477,7 @@ footer {
 
 .footer-social {
   display: flex;
+  align-items: center;
   justify-content: center;
   gap: var(--space-2);
 }
@@ -3015,7 +3028,7 @@ header .btn {
 
   /* Desktop: Balances larger */
   .balances-row {
-    gap: var(--space-3);
+    gap: var(--space-1);
   }
 
   .balance-value {

@@ -1317,7 +1317,6 @@ function App() {
 
           <div className="footer-links">
             <div className="footer-column">
-              <h4 className="social-title">Social</h4>
               <div className="footer-social">
                 <a href="https://x.com/WRDL_MONAD" target="_blank" rel="noopener noreferrer" className="social-link">
                   <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">

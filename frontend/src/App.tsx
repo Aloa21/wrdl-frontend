@@ -768,12 +768,20 @@ function App() {
     <div className="card stats-card">
       <h2>Your Stats</h2>
       <div className="balances-row">
-        <span className="balance">
-          {balance ? parseFloat(formatEther(balance.value)).toFixed(4) : '0'} MON
-        </span>
-        <span className="balance wrdle-balance">
-          {tokenBalance ? parseFloat(formatEther(tokenBalance)).toFixed(0) : '0'} WRDL
-        </span>
+        <div className="balance-card">
+          <span className="balance-value">{balance ? parseFloat(formatEther(balance.value)).toFixed(4) : '0'}</span>
+          <div className="balance-token">
+            <img src="/monad-icon.svg" alt="MON" className="balance-icon monad-icon" />
+            <span className="token-name">MON</span>
+          </div>
+        </div>
+        <div className="balance-card wrdle-card">
+          <span className="balance-value">{tokenBalance ? parseFloat(formatEther(tokenBalance)).toFixed(0) : '0'}</span>
+          <div className="balance-token">
+            <img src="/wrdl-token.png" alt="WRDL" className="balance-icon" />
+            <span className="token-name">WRDL</span>
+          </div>
+        </div>
       </div>
       <div className="game-status">
         <div className="stat-box">
@@ -785,12 +793,12 @@ function App() {
           <div className="label">Games</div>
         </div>
         <div className="stat-box">
-          <div className="value">{playerStats ? playerStats[2].toString() : '0'}</div>
-          <div className="label">Streak</div>
-        </div>
-        <div className="stat-box">
           <div className="value">{playerStats ? playerStats[3].toString() : '0'}</div>
           <div className="label">Best</div>
+        </div>
+        <div className="stat-box">
+          <div className="value">{playerStats ? playerStats[2].toString() : '0'}</div>
+          <div className="label">Streak</div>
         </div>
         <div
           className="stat-box highlight multiplier-box"
@@ -962,27 +970,48 @@ function App() {
     </div>
   )
 
+  // Render Buy WRDL Card (gradient CTA for nad.fun)
+  const renderBuyWrdlCard = () => (
+    <a
+      href="https://nad.fun/tokens/0xfE569A198cadA6E7b3B7C51a59b0A0C3b4157777"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="card buy-wrdl-card"
+    >
+      <div className="buy-wrdl-content">
+        <img src="/wrdl-token.png" alt="WRDL" className="wrdl-token-logo" />
+        <div className="buy-wrdl-text">
+          <span className="buy-wrdl-title">Buy WRDL on <span className="nad-brand"><img src="/nad-fun-logo.svg" alt="nad.fun" className="nad-inline-logo" />nad.fun</span></span>
+        </div>
+        <span className="buy-wrdl-btn">Buy WRDL</span>
+      </div>
+      <img src="/nad-fun-logo.svg" alt="" className="nad-bg-logo" aria-hidden="true" />
+    </a>
+  )
+
   // Render Play Card
   const renderPlayCard = () => (
     <div className="card play-card">
-      <div className="card-content">
-        <div className="play-hero">
-          <div className="play-icon">🎮</div>
-          <h2 className="play-title">Play wrdl.fun</h2>
+      <div className="play-spacer play-spacer-top"></div>
 
-          <div className="color-guide">
-            <div className="guide-item">
-              <span className="guide-tile correct">A</span>
-              <span>Correct spot</span>
-            </div>
-            <div className="guide-item">
-              <span className="guide-tile present">B</span>
-              <span>Wrong spot</span>
-            </div>
-            <div className="guide-item">
-              <span className="guide-tile absent">C</span>
-              <span>Not in word</span>
-            </div>
+      <div className="play-hero">
+        <div className="play-icon">🎮</div>
+        <h2 className="play-title">Play wrdl.fun</h2>
+      </div>
+
+      <div className="play-spacer">
+        <div className="color-guide">
+          <div className="guide-item">
+            <span className="guide-tile correct">A</span>
+            <span>Correct spot</span>
+          </div>
+          <div className="guide-item">
+            <span className="guide-tile present">B</span>
+            <span>Wrong spot</span>
+          </div>
+          <div className="guide-item">
+            <span className="guide-tile absent">C</span>
+            <span>Not in word</span>
           </div>
         </div>
       </div>
@@ -1059,22 +1088,35 @@ function App() {
       </div>
 
       <div className="result-actions">
-        {gameWon && !isResolved && (
-          <button
-            className="btn"
-            onClick={handleResolve}
-            disabled={isResolving || isResolveConfirming}
-          >
-            {isResolving || isResolveConfirming ? 'Claiming...' : 'Claim WRDL Rewards'}
-          </button>
-        )}
         <button
           className="btn"
           onClick={() => { setGamePhase('lobby'); setPlayingGameId(null); }}
         >
           Play Again
         </button>
+        {gameWon && !isResolved && (
+          <button
+            className="btn"
+            onClick={handleResolve}
+            disabled={isResolving || isResolveConfirming}
+          >
+            {isResolving || isResolveConfirming ? 'Claiming...' : 'Claim WRDL'}
+          </button>
+        )}
       </div>
+      {gameWon && (
+        <a
+          className="btn share-btn"
+          href={`https://x.com/intent/tweet?text=${encodeURIComponent(`I just won ${totalReward} $WRDL in ${guesses.length}/6 tries! 🏆\n\nCan you beat my score?\n\nPlay now at https://www.wrdl.fun\n\n@WRDL_MONAD`)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Share
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </a>
+      )}
     </div>
   )
   }
@@ -1082,11 +1124,13 @@ function App() {
   // Render Contract Info Footer
   const renderContractInfo = () => (
     <div className="contract-info">
-      Game: <a href={`https://monadscan.com/address/${WORDLE_ROYALE_ADDRESS}`} target="_blank" rel="noopener noreferrer">
+      <span>Game:</span>
+      <a href={`https://monadscan.com/address/${WORDLE_ROYALE_ADDRESS}`} target="_blank" rel="noopener noreferrer">
         {WORDLE_ROYALE_ADDRESS.slice(0, 10)}...
       </a>
-      {' | '}
-      Token: <a href={`https://monadscan.com/address/${WORDLE_TOKEN_ADDRESS}`} target="_blank" rel="noopener noreferrer">
+      <span>|</span>
+      <span>Token:</span>
+      <a href={`https://monadscan.com/address/${WORDLE_TOKEN_ADDRESS}`} target="_blank" rel="noopener noreferrer">
         {WORDLE_TOKEN_ADDRESS.slice(0, 10)}...
       </a>
     </div>
@@ -1203,6 +1247,7 @@ function App() {
         <>
           {/* MOBILE LAYOUT - Stacked cards */}
           <div className="mobile-content">
+            {renderBuyWrdlCard()}
             {gamePhase === 'lobby' && renderPlayCard()}
             {gamePhase === 'playing' && renderGameCard()}
             {gamePhase === 'finished' && renderResultCard()}
@@ -1217,6 +1262,7 @@ function App() {
 
           {/* TABLET LAYOUT - Stats+Game stacked on top (70%), 3 cards below (30%) */}
           <div className="tablet-content">
+            {renderBuyWrdlCard()}
             <div className="tablet-top-col">
               {renderStatsCard()}
               {gamePhase === 'lobby' && renderPlayCard()}
@@ -1243,6 +1289,7 @@ function App() {
 
               {/* Center Column - Game Area */}
               <div className="desktop-center">
+                {renderBuyWrdlCard()}
                 {gamePhase === 'lobby' && renderPlayCard()}
                 {gamePhase === 'playing' && renderGameCard()}
                 {gamePhase === 'finished' && renderResultCard()}
@@ -1270,7 +1317,7 @@ function App() {
 
           <div className="footer-links">
             <div className="footer-column">
-              <h4>Social</h4>
+              <h4 className="social-title">Social</h4>
               <div className="footer-social">
                 <a href="https://x.com/WRDL_MONAD" target="_blank" rel="noopener noreferrer" className="social-link">
                   <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
@@ -1283,6 +1330,9 @@ function App() {
         </div>
 
         <div className="footer-bottom">
+          <div className="footer-network">
+            <span className="network-badge">Monad Mainnet</span>
+          </div>
           <div className="footer-copyright">
             <p>© 2025 wrdl.fun</p>
             <p className="built-on-monad">
@@ -1291,9 +1341,6 @@ function App() {
                 <img src="/monad-logo.svg" alt="Monad" className="monad-logo-footer" />
               </a>
             </p>
-          </div>
-          <div className="footer-network">
-            <span className="network-badge">Monad Mainnet</span>
           </div>
         </div>
       </footer>

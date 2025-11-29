@@ -285,7 +285,7 @@ function App() {
   })
 
   // Streak multiplier
-  const { data: streakMultiplier } = useReadContract({
+  const { data: streakMultiplier, refetch: refetchStreakMultiplier } = useReadContract({
     address: WORDLE_ROYALE_ADDRESS,
     abi: WORDLE_ROYALE_ABI,
     functionName: 'getStreakMultiplier',
@@ -367,8 +367,9 @@ function App() {
       refetchStats()
       refetchTokenBalance()
       refetchIsResolved()
+      refetchStreakMultiplier()
     }
-  }, [isResolveConfirmed, addLog, refetchGameId, refetchStats, refetchTokenBalance, refetchIsResolved])
+  }, [isResolveConfirmed, addLog, refetchGameId, refetchStats, refetchTokenBalance, refetchIsResolved, refetchStreakMultiplier])
 
   
   const handleJoin = () => {
@@ -808,12 +809,12 @@ function App() {
           <span className="reward-amount">+100 WRDL</span>
         </div>
         <div className="reward-item bonus">
-          <span className="reward-label">First Win Ever</span>
-          <span className="reward-amount">+50 WRDL</span>
+          <span className="reward-label">Milestones (10/50/100 wins)</span>
+          <span className="reward-amount">+100/500/1K</span>
         </div>
         <div className="reward-item bonus">
-          <span className="reward-label">Milestones (10/50/100)</span>
-          <span className="reward-amount">+100/500/1K</span>
+          <span className="reward-label">Streak Multiplier</span>
+          <span className="reward-amount">1.2x-3x</span>
         </div>
       </div>
 

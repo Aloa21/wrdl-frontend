@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
+import { createPortal } from 'react-dom'
 import {
   useAccount,
   useConnect,
@@ -166,7 +167,7 @@ function MockupGame() {
         <h3 className="mockup-victory-title">Victory!</h3>
         <p className="mockup-victory-word">The word was: <strong>PLANT</strong></p>
         <div className="mockup-reward">
-          <span className="mockup-reward-amount">+10 WRDL</span>
+          <span className="mockup-reward-amount">+100 WRDL</span>
         </div>
       </div>
     )
@@ -248,6 +249,11 @@ function App() {
   const [showMobileWalletSelector, setShowMobileWalletSelector] = useState(false)
   const [isConnecting, setIsConnecting] = useState(false)
   const [pendingWcUri, setPendingWcUri] = useState<string | null>(null)
+
+  // Multiplier tooltip state
+  const [showMultiplierTooltip, setShowMultiplierTooltip] = useState(false)
+  const [tooltipPosition, setTooltipPosition] = useState({ top: 0, left: 0 })
+  const multiplierBoxRef = useRef<HTMLDivElement>(null)
 
   // Fetch resolver address from backend
   useEffect(() => {
@@ -759,7 +765,7 @@ function App() {
 
   // Render Stats Card
   const renderStatsCard = () => (
-    <div className="card">
+    <div className="card stats-card">
       <h2>Your Stats</h2>
       <div className="balances-row">
         <span className="balance">
@@ -786,9 +792,69 @@ function App() {
           <div className="value">{playerStats ? playerStats[3].toString() : '0'}</div>
           <div className="label">Best</div>
         </div>
-        <div className="stat-box highlight">
+        <div
+          className="stat-box highlight multiplier-box"
+          ref={multiplierBoxRef}
+          onMouseEnter={() => {
+            if (multiplierBoxRef.current) {
+              const rect = multiplierBoxRef.current.getBoundingClientRect()
+              setTooltipPosition({
+                top: rect.top - 8,
+                left: rect.left + rect.width / 2
+              })
+              setShowMultiplierTooltip(true)
+            }
+          }}
+          onMouseLeave={() => setShowMultiplierTooltip(false)}
+        >
           <div className="value">{streakMultiplier ? `${(Number(streakMultiplier) / 10000).toFixed(1)}x` : '1x'}</div>
           <div className="label">Multiplier</div>
+          <span className="info-icon desktop-only">
+            <svg viewBox="0 0 16 16" width="10" height="10" fill="currentColor">
+              <path d="M8 0a8 8 0 1 0 8 8A8 8 0 0 0 8 0zm0 14.5A6.5 6.5 0 1 1 14.5 8 6.5 6.5 0 0 1 8 14.5zM8 4a1 1 0 1 1-1 1 1 1 0 0 1 1-1zm1.5 8h-3v-1h1V8h-1V7h2v4h1z"/>
+            </svg>
+          </span>
+        </div>
+      </div>
+
+      {/* Mobile dropdown for multiplier info */}
+      <div className="multiplier-dropdown mobile-only">
+        <button
+          className={`multiplier-dropdown-toggle ${showMultiplierTooltip ? 'open' : ''}`}
+          onClick={() => setShowMultiplierTooltip(!showMultiplierTooltip)}
+        >
+          <span>How multiplier works</span>
+          <svg
+            className="dropdown-chevron"
+            viewBox="0 0 24 24"
+            width="14"
+            height="14"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
+            <polyline points="6 9 12 15 18 9"></polyline>
+          </svg>
+        </button>
+        <div className={`multiplier-dropdown-content ${showMultiplierTooltip ? 'open' : ''}`}>
+          <div className="multiplier-info-grid">
+            <div className="multiplier-info-row">
+              <span className="streak-label">3 wins streak</span>
+              <span className="multiplier-value">1.2x</span>
+            </div>
+            <div className="multiplier-info-row">
+              <span className="streak-label">5 wins streak</span>
+              <span className="multiplier-value">1.5x</span>
+            </div>
+            <div className="multiplier-info-row">
+              <span className="streak-label">7 wins streak</span>
+              <span className="multiplier-value">2x</span>
+            </div>
+            <div className="multiplier-info-row">
+              <span className="streak-label">10 wins streak</span>
+              <span className="multiplier-value">3x</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -802,7 +868,7 @@ function App() {
       <div className="rewards-compact">
         <div className="reward-item main">
           <span className="reward-label">Base Win Reward</span>
-          <span className="reward-amount">10 WRDL</span>
+          <span className="reward-amount">100 WRDL</span>
         </div>
         <div className="reward-item bonus">
           <span className="reward-label">Perfect Game (1 guess)</span>
@@ -811,10 +877,6 @@ function App() {
         <div className="reward-item bonus">
           <span className="reward-label">Milestones (10/50/100 wins)</span>
           <span className="reward-amount">+100/500/1K</span>
-        </div>
-        <div className="reward-item bonus">
-          <span className="reward-label">Streak Multiplier</span>
-          <span className="reward-amount">1.2x-3x</span>
         </div>
       </div>
 
@@ -1216,6 +1278,27 @@ function App() {
         onClose={() => setShowMobileWalletSelector(false)}
         onSelectWallet={handleMobileWalletSelect}
       />
+
+      {/* Multiplier Tooltip Portal */}
+      {showMultiplierTooltip && createPortal(
+        <div
+          className="multiplier-tooltip-portal"
+          style={{
+            position: 'fixed',
+            top: tooltipPosition.top,
+            left: tooltipPosition.left,
+            transform: 'translate(-50%, -100%)',
+            zIndex: 9999,
+          }}
+        >
+          <div className="tooltip-title">Streak Multiplier</div>
+          <div className="tooltip-row"><span>3 wins</span><span>1.2x</span></div>
+          <div className="tooltip-row"><span>5 wins</span><span>1.5x</span></div>
+          <div className="tooltip-row"><span>7 wins</span><span>2x</span></div>
+          <div className="tooltip-row"><span>10 wins</span><span>3x</span></div>
+        </div>,
+        document.body
+      )}
     </div>
   )
 }

@@ -359,6 +359,7 @@ h1 {
   -webkit-backdrop-filter: blur(12px);
   display: flex;
   flex-direction: column;
+  overflow: visible;
 }
 
 /* Card content wrapper - centered horizontally and vertically */
@@ -502,6 +503,7 @@ h2::before {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: var(--space-1);
+  overflow: visible;
 }
 
 .stat-box {
@@ -531,6 +533,172 @@ h2::before {
 .stat-box.highlight {
   background: linear-gradient(135deg, rgba(131, 110, 249, 0.15), rgba(0, 212, 170, 0.15));
   border-color: var(--color-primary);
+}
+
+/* Multiplier Box with Tooltip */
+.multiplier-box {
+  position: relative;
+}
+
+.info-icon {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  cursor: pointer;
+  opacity: 0.6;
+  transition: opacity var(--transition-fast), color var(--transition-fast);
+}
+
+.info-icon:hover {
+  opacity: 1;
+  color: var(--color-primary);
+}
+
+/* Mobile/Desktop visibility helpers */
+.desktop-only {
+  display: none;
+}
+
+.mobile-only {
+  display: flex;
+}
+
+@media (min-width: 768px) {
+  .desktop-only {
+    display: flex;
+  }
+
+  .mobile-only {
+    display: none !important;
+  }
+}
+
+/* Multiplier Dropdown for Mobile */
+.multiplier-dropdown {
+  margin-top: var(--space-2);
+  border-top: 1px solid var(--border-default);
+  padding-top: var(--space-2);
+  flex-direction: column;
+}
+
+.multiplier-dropdown-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  width: 100%;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 10px;
+  font-family: inherit;
+  cursor: pointer;
+  padding: var(--space-1) 0;
+  transition: color var(--transition-fast);
+}
+
+.multiplier-dropdown-toggle:hover {
+  color: var(--color-primary);
+}
+
+.multiplier-dropdown-toggle .dropdown-chevron {
+  transition: transform var(--transition-base);
+}
+
+.multiplier-dropdown-toggle.open .dropdown-chevron {
+  transform: rotate(180deg);
+}
+
+.multiplier-dropdown-toggle.open {
+  color: var(--color-primary);
+}
+
+.multiplier-dropdown-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height var(--transition-base), padding var(--transition-base);
+}
+
+.multiplier-dropdown-content.open {
+  max-height: 150px;
+  padding-top: var(--space-2);
+}
+
+.multiplier-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-1);
+}
+
+.multiplier-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-1) var(--space-2);
+  background: var(--bg-elevated);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-default);
+}
+
+.multiplier-info-row .streak-label {
+  font-size: 9px;
+  color: var(--text-secondary);
+}
+
+.multiplier-info-row .multiplier-value {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+/* Multiplier Tooltip Portal - rendered outside of overflow:hidden containers */
+.multiplier-tooltip-portal {
+  background: var(--bg-base);
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-3);
+  min-width: 140px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 15px var(--color-primary-glow);
+  pointer-events: none;
+}
+
+/* Arrow pointing down */
+.multiplier-tooltip-portal::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: var(--color-primary);
+}
+
+.tooltip-title {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: var(--space-1);
+  text-align: center;
+  border-bottom: 1px solid var(--border-default);
+  padding-bottom: var(--space-1);
+}
+
+.tooltip-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--text-secondary);
+  padding: 2px 0;
+}
+
+.tooltip-row span:last-child {
+  font-weight: 600;
+  color: var(--color-accent);
 }
 
 /* ==========================================================================
@@ -2161,78 +2329,37 @@ footer .network-badge::before {
 
 /* Mobile-specific adjustments for How It Works card */
 @media (max-width: 767px) {
-  .how-it-works-card {
-    padding: 4px 6px;
-  }
-
-  .how-it-works-card h2 {
-    font-size: var(--text-xs);
-    margin-bottom: 4px;
-  }
-
   .how-it-works-card .how-steps {
-    gap: clamp(4px, 1.5vh, 12px);
+    gap: var(--space-2);
     justify-content: flex-start;
   }
 
   .how-step {
-    padding: clamp(4px, 1vh, 10px) clamp(6px, 1.5vw, 12px);
+    padding: var(--space-2);
     gap: var(--space-2);
     flex: 0 0 auto;
   }
 
   .step-icon {
-    width: clamp(16px, 4vw, 22px);
-    height: clamp(16px, 4vw, 22px);
-    font-size: clamp(8px, 2vw, 12px);
+    width: 24px;
+    height: 24px;
+    font-size: var(--text-xs);
   }
 
   .step-content h4 {
-    font-size: clamp(10px, 2.5vw, 13px);
+    font-size: var(--text-xs);
     margin-bottom: 0;
     line-height: 1.2;
   }
 
   .step-content p {
-    font-size: clamp(8px, 2vw, 11px);
-    line-height: 1.2;
+    font-size: 10px;
+    line-height: 1.3;
   }
 }
 
 /* Extra small height screens (iPhone SE 375x667, etc) */
 @media (max-width: 767px) and (max-height: 667px) {
-  .how-it-works-card {
-    padding: 2px 4px;
-  }
-
-  .how-it-works-card h2 {
-    font-size: 9px;
-    margin-bottom: 2px;
-  }
-
-  .how-it-works-card .how-steps {
-    gap: 4px;
-  }
-
-  .how-step {
-    padding: 4px 6px;
-  }
-
-  .step-icon {
-    width: 16px;
-    height: 16px;
-    font-size: 9px;
-  }
-
-  .step-content h4 {
-    font-size: 10px;
-  }
-
-  .step-content p {
-    font-size: 8px;
-    line-height: 1.2;
-  }
-
   /* Hide header and footer in mockup card, show only grid + legend */
   .mockup-header,
   .mockup-footer {
@@ -2284,6 +2411,20 @@ footer .network-badge::before {
   padding-right: var(--space-1);
   margin-right: calc(-1 * var(--space-2));
   -webkit-overflow-scrolling: touch;
+}
+
+/* Mobile: Play card and Stats card visible in viewport */
+/* Play card takes majority of space, Stats card is compact */
+.mobile-content > .play-card,
+.mobile-content > .game-card,
+.mobile-content > .result-card {
+  flex: 1 1 auto;
+  min-height: 55vh;
+  min-height: 55dvh;
+}
+
+.mobile-content > .stats-card {
+  flex: 0 0 auto;
 }
 
 .tablet-content {

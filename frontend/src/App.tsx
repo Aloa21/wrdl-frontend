@@ -1010,7 +1010,27 @@ function App() {
   )
 
   // Render Result Card (finished phase)
-  const renderResultCard = () => (
+  const renderResultCard = () => {
+    // Calculate rewards
+    const baseReward = 100
+    const isPerfectGame = guesses.length === 1
+    const perfectBonus = isPerfectGame ? 100 : 0
+
+    // Check milestones (wins after this game)
+    const currentWins = playerStats ? Number(playerStats[0]) : 0
+    const isMilestone10 = currentWins === 10
+    const isMilestone50 = currentWins === 50
+    const isMilestone100 = currentWins === 100
+    const milestoneBonus = isMilestone10 ? 100 : isMilestone50 ? 500 : isMilestone100 ? 1000 : 0
+
+    // Streak multiplier
+    const multiplier = streakMultiplier ? Number(streakMultiplier) / 10000 : 1
+
+    // Total reward
+    const totalBeforeMultiplier = baseReward + perfectBonus + milestoneBonus
+    const totalReward = Math.floor(totalBeforeMultiplier * multiplier)
+
+    return (
     <div className="card result-card">
       <div className="card-content">
         <div className="result-icon">{gameWon ? '🏆' : '😔'}</div>
@@ -1023,13 +1043,13 @@ function App() {
 
         {gameWon && (
           <div className="prize-display">
-            <div className="prize-amount">
-              {guesses.length === 1 ? '200 WRDL' : '100 WRDL'}
-            </div>
+            <div className="prize-amount">{totalReward} WRDL</div>
             <div className="prize-label">Your Reward</div>
-            {guesses.length === 1 && (
-              <div className="prize-bonus">Perfect Game Bonus!</div>
-            )}
+            <div className="prize-breakdown">
+              {isPerfectGame && <span className="prize-bonus">Perfect Game +100</span>}
+              {milestoneBonus > 0 && <span className="prize-bonus">{currentWins} Wins Milestone +{milestoneBonus}</span>}
+              {multiplier > 1 && <span className="prize-bonus">{multiplier}x Streak Multiplier</span>}
+            </div>
           </div>
         )}
 
@@ -1057,6 +1077,7 @@ function App() {
       </div>
     </div>
   )
+  }
 
   // Render Contract Info Footer
   const renderContractInfo = () => (

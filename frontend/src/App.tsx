@@ -1023,8 +1023,13 @@ function App() {
 
         {gameWon && (
           <div className="prize-display">
-            <div className="prize-amount">10+ WRDL</div>
+            <div className="prize-amount">
+              {guesses.length === 1 ? '200 WRDL' : '100 WRDL'}
+            </div>
             <div className="prize-label">Your Reward</div>
+            {guesses.length === 1 && (
+              <div className="prize-bonus">Perfect Game Bonus!</div>
+            )}
           </div>
         )}
 

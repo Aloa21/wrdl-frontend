@@ -99,3 +99,12 @@ export async function claimSignature(
   }
   return res.json();
 }
+
+// DEBUG: Get winning word for session (only for testing)
+export async function getDebugWord(sessionId: string, secret: string): Promise<{ word: string }> {
+  const res = await fetch(`${API_BASE}/api/debug/word/${sessionId}?secret=${encodeURIComponent(secret)}`);
+  if (!res.ok) {
+    throw new Error('Failed to get debug word');
+  }
+  return res.json();
+}

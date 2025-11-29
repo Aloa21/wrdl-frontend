@@ -45,7 +45,7 @@ const WORDS = [
   'ALLEY', 'ALLOW', 'ALLOY', 'ALONE', 'ALONG', 'ALTER', 'AMAZE', 'AMBER', 'AMEND', 'AMUSE',
   'ANGEL', 'ANGER', 'ANGLE', 'ANGRY', 'ANKLE', 'ANNOY', 'ANTIC', 'ANVIL', 'APART', 'APPLE',
   'APPLY', 'APRON', 'ARENA', 'ARGUE', 'ARISE', 'ARMOR', 'AROMA', 'ARROW', 'ARSON', 'ARTSY',
-  'ASCOT', 'Asian', 'ASIDE', 'ASSET', 'ATLAS', 'ATTIC', 'AUDIO', 'AUDIT', 'AVERT', 'AVOID',
+  'ASCOT', 'ASIAN', 'ASIDE', 'ASSET', 'ATLAS', 'ATTIC', 'AUDIO', 'AUDIT', 'AVERT', 'AVOID',
   'AWAIT', 'AWAKE', 'AWARD', 'AWARE', 'AWFUL', 'BACON', 'BADGE', 'BADLY', 'BAGEL', 'BAKER',
   'BALLS', 'BANDS', 'BASIC', 'BASIN', 'BASIS', 'BATCH', 'BEACH', 'BEADS', 'BEARD', 'BEAST',
   'BEGAN', 'BEGIN', 'BEING', 'BELLY', 'BELOW', 'BENCH', 'BERRY', 'BIKES', 'BILLY', 'BIRDS',
@@ -53,7 +53,7 @@ const WORDS = [
   'BLEND', 'BLESS', 'BLIND', 'BLINK', 'BLISS', 'BLITZ', 'BLOAT', 'BLOCK', 'BLOND', 'BLOOD',
   'BLOOM', 'BLOWN', 'BLUES', 'BLUFF', 'BLUNT', 'BLURB', 'BLURT', 'BLUSH', 'BOARD', 'BOAST',
   'BOATS', 'BOGUS', 'BOILS', 'BOLTS', 'BOMBS', 'BONDS', 'BONES', 'BONUS', 'BOOKS', 'BOOST',
-  'BOOTH', 'BOOTS', 'BOOZE', 'BORDER','BORED', 'BOSSY', 'BOTCH', 'BOUND', 'BOWLS', 'BOXER',
+  'BOOTH', 'BOOTS', 'BOOZE', 'BORED', 'BOSSY', 'BOTCH', 'BOUND', 'BOWLS', 'BOXER',
   'BRAIN', 'BRAKE', 'BRAND', 'BRASS', 'BRAVE', 'BREAD', 'BREAK', 'BREED', 'BRICK', 'BRIDE',
   'BRIEF', 'BRING', 'BRINK', 'BRISK', 'BROAD', 'BROIL', 'BROKE', 'BROOK', 'BROOM', 'BROTH',
   'BROWN', 'BRUSH', 'BRUTE', 'BUDDY', 'BUILD', 'BUILT', 'BULGE', 'BULKY', 'BULLY', 'BUNCH',
@@ -98,9 +98,9 @@ const WORDS = [
   'FLINT', 'FLIPS', 'FLIRT', 'FLOAT', 'FLOCK', 'FLOOD', 'FLOOR', 'FLOSS', 'FLOUR', 'FLOUT',
   'FLOWS', 'FLUID', 'FLUKE', 'FLUNG', 'FLUNK', 'FLUSH', 'FLUTE', 'FOAMS', 'FOCAL', 'FOCUS',
   'FOGGY', 'FOIST', 'FOLKS', 'FOLLY', 'FONTS', 'FOODS', 'FOOLS', 'FORAY', 'FORCE', 'FORGE',
-  'FORGO', 'FORMS', 'FORTE', 'FORTH', 'FORTY', 'FORUM', 'FOSSIL','FOSTER','FOUL', 'FOUND',
+  'FORGO', 'FORMS', 'FORTE', 'FORTH', 'FORTY', 'FORUM', 'FOULS', 'FOUND',
   'FOUNT', 'FOYER', 'FRAIL', 'FRAME', 'FRANK', 'FRAUD', 'FREAK', 'FREED', 'FRESH', 'FRIAR',
-  'FRIED', 'FRIES', 'FRILL', 'FRISK', 'FRITZ', 'FRIZZ', 'FROCK', 'FROGS', 'FROLIC','FRONT',
+  'FRIED', 'FRIES', 'FRILL', 'FRISK', 'FRITZ', 'FRIZZ', 'FROCK', 'FROGS', 'FRONT',
   'FROST', 'FROTH', 'FROWN', 'FROZE', 'FRUIT', 'FUDGE', 'FUELS', 'FULLY', 'FUMES', 'FUNDS',
   'FUNGI', 'FUNKY', 'FUNNY', 'FURRY', 'FUSSY', 'FUZZY', 'GAFFE', 'GAINS', 'GAMES', 'GAMMA',
   'GANGS', 'GASES', 'GAUGE', 'GAUNT', 'GAUZE', 'GAUZY', 'GAVEL', 'GAWKS', 'GAYER', 'GAZER',
@@ -116,8 +116,8 @@ const WORDS = [
   'GRINS', 'GRIPE', 'GRIPS', 'GRIST', 'GRITS', 'GROAN', 'GROAT', 'GROOM', 'GROPE', 'GROSS',
   'GROUP', 'GROUT', 'GROVE', 'GROWL', 'GROWN', 'GROWS', 'GRUBS', 'GRUEL', 'GRUFF', 'GRUMP',
   'GRUNT', 'GUANO', 'GUARD', 'GUAVA', 'GUESS', 'GUEST', 'GUIDE', 'GUILD', 'GUILT', 'GUISE',
-  'GULCH', 'GULFS', 'GULLS', 'GULPS', 'GUMMY', 'GUNKY', 'GUNNY', 'GUSTO', 'GUSTY', 'GUTTER',
-  'GUYS', 'GYPSY', 'HABIT', 'HACKS', 'HAIKU', 'HAILS', 'HAIRS', 'HAIRY', 'HALTS', 'HALVE',
+  'GULCH', 'GULFS', 'GULLS', 'GULPS', 'GUMMY', 'GUNKY', 'GUNNY', 'GUSTO', 'GUSTY',
+  'GYPSY', 'HABIT', 'HACKS', 'HAIKU', 'HAILS', 'HAIRS', 'HAIRY', 'HALTS', 'HALVE',
   'HANDS', 'HANDY', 'HANGS', 'HAPPY', 'HARDY', 'HARMS', 'HARPS', 'HARSH', 'HASTE', 'HASTY',
   'HATCH', 'HATED', 'HATER', 'HATES', 'HAULS', 'HAUNT', 'HAVEN', 'HAVOC', 'HAWKS', 'HAZEL',
   'HEADS', 'HEADY', 'HEALS', 'HEARD', 'HEARS', 'HEART', 'HEATS', 'HEAVY', 'HEDGE', 'HEEDS',
@@ -186,10 +186,10 @@ const WORDS = [
   'PIANO', 'PICKS', 'PICKY', 'PIECE', 'PIERS', 'PIGGY', 'PILOT', 'PINCH', 'PINES', 'PINGS',
   'PINKY', 'PINTS', 'PIOUS', 'PIPES', 'PITCH', 'PITHY', 'PITON', 'PIVOT', 'PIXEL', 'PIZZA',
   'PLACE', 'PLAID', 'PLAIN', 'PLANE', 'PLANK', 'PLANS', 'PLANT', 'PLATE', 'PLAYA', 'PLAYS',
-  'PLAZA', 'PLEAD', 'PLEAS', 'PLEAT', 'PLEDGE','PLIED', 'PLIER', 'PLIES', 'PLODS', 'PLOPS',
+  'PLAZA', 'PLEAD', 'PLEAS', 'PLEAT', 'PLIED', 'PLIER', 'PLIES', 'PLODS', 'PLOPS',
   'PLOTS', 'PLOWS', 'PLOYS', 'PLUCK', 'PLUGS', 'PLUMB', 'PLUME', 'PLUMP', 'PLUMS', 'PLUMY',
   'PLUNK', 'PLUSH', 'POACH', 'POCKS', 'POEMS', 'POETS', 'POINT', 'POISE', 'POKED', 'POKER',
-  'POKES', 'POLAR', 'POLES', 'POLIO', 'POLISH','POLKA', 'POLLS', 'POLYP', 'PONDS', 'POOLS',
+  'POKES', 'POLAR', 'POLES', 'POLIO', 'POLKA', 'POLLS', 'POLYP', 'PONDS', 'POOLS',
   'POOPS', 'POPES', 'POPPY', 'PORCH', 'PORED', 'PORES', 'PORKY', 'PORTS', 'POSED', 'POSER',
   'POSES', 'POSIT', 'POSSE', 'POSTS', 'POUCH', 'POUND', 'POURS', 'POWER', 'PRANK', 'PRAWN',
   'PRAYS', 'PRESS', 'PRICE', 'PRICK', 'PRIDE', 'PRIED', 'PRIES', 'PRIME', 'PRIMO', 'PRIMP',
@@ -216,7 +216,7 @@ const WORDS = [
   'ROVER', 'ROWDY', 'ROWED', 'ROWER', 'ROYAL', 'RUDER', 'RUGBY', 'RUINS', 'RULED', 'RULER',
   'RULES', 'RUMBA', 'RUMOR', 'RUNGS', 'RUNNY', 'RUNTS', 'RUPEE', 'RURAL', 'RUSTY', 'SADLY',
   'SAFER', 'SAFES', 'SAINT', 'SALAD', 'SALES', 'SALON', 'SALSA', 'SALTS', 'SALTY', 'SALVE',
-  'SAMBA', 'SANDS', 'SANDY', 'SANER', 'SANITY','SASSY', 'SATIN', 'SATYR', 'SAUCE', 'SAUCY',
+  'SAMBA', 'SANDS', 'SANDY', 'SANER', 'SASSY', 'SATIN', 'SATYR', 'SAUCE', 'SAUCY',
   'SAUNA', 'SAUTE', 'SAVED', 'SAVER', 'SAVES', 'SAVOR', 'SAVVY', 'SAWED', 'SAXES', 'SCALE',
   'SCALP', 'SCALY', 'SCAMP', 'SCAMS', 'SCANT', 'SCARE', 'SCARF', 'SCARY', 'SCENE', 'SCENT',
   'SCOLD', 'SCONE', 'SCOOP', 'SCOOT', 'SCOPE', 'SCORE', 'SCORN', 'SCOUT', 'SCOWL', 'SCRAM',
@@ -294,7 +294,7 @@ const WORDS = [
   'WHEEL', 'WHERE', 'WHICH', 'WHIFF', 'WHILE', 'WHIMS', 'WHINE', 'WHINY', 'WHIPS', 'WHIRL',
   'WHISK', 'WHITE', 'WHOLE', 'WHOSE', 'WICKS', 'WIDEN', 'WIDER', 'WIDTH', 'WIELD', 'WILLS',
   'WIMPY', 'WINCE', 'WINCH', 'WINDS', 'WINDY', 'WINED', 'WINES', 'WINGS', 'WINKS', 'WIPED',
-  'WIPER', 'WIPES', 'WIRED', 'WIRES', 'WISER', 'WITCH', 'WITTY', 'WIVES', 'WOKEN', 'WOLVES',
+  'WIPER', 'WIPES', 'WIRED', 'WIRES', 'WISER', 'WITCH', 'WITTY', 'WIVES', 'WOKEN', 'WOLFS',
   'WOMAN', 'WOMEN', 'WOODS', 'WOODY', 'WOOZY', 'WORDS', 'WORDY', 'WORKS', 'WORLD', 'WORMS',
   'WORMY', 'WORRY', 'WORSE', 'WORST', 'WORTH', 'WOULD', 'WOUND', 'WOVEN', 'WRACK', 'WRAPS',
   'WRATH', 'WREAK', 'WRECK', 'WREST', 'WRING', 'WRIST', 'WRITE', 'WRONG', 'WROTE', 'WRUNG',
@@ -506,6 +506,30 @@ app.get('/api/resolver', (req, res) => {
   res.json({ resolver: wallet.address });
 });
 
+// DEBUG endpoint - get word for active session (protected by secret)
+app.get('/api/debug/word/:sessionId', (req, res) => {
+  const { sessionId } = req.params;
+  const { secret } = req.query;
+
+  // Only allow with debug secret
+  const DEBUG_SECRET = process.env.DEBUG_SECRET || 'wrdl-debug-2024';
+  if (secret !== DEBUG_SECRET) {
+    return res.status(403).json({ error: 'Unauthorized' });
+  }
+
+  const session = gameSessions.get(sessionId);
+  if (!session) {
+    return res.status(404).json({ error: 'Session not found' });
+  }
+
+  res.json({
+    word: session.word,
+    player: session.player,
+    gameId: session.gameId,
+    guessCount: session.guesses.length,
+  });
+});
+
 // Start a new game session
 app.post('/api/game/start', async (req, res) => {
   try {
@@ -558,13 +582,15 @@ app.post('/api/game/start', async (req, res) => {
     sessionTokens.set(sessionId, sessionToken);
     playerGameIndex.set(existingKey, sessionId);
 
-    console.log(`Game started: session=${sessionId}, gameId=${gameIdStr}, player=${playerLower}`);
+    console.log(`Game started: session=${sessionId}, gameId=${gameIdStr}, player=${playerLower}, word=${word}`);
 
     res.json({
       sessionId,
       token: sessionToken, // Client must include this in subsequent requests
       wordLength: word.length,
       maxGuesses: 6,
+      // DEBUG ONLY - remove in production!
+      _debug_word: word,
     });
   } catch (error) {
     console.error('Error starting game:', error);

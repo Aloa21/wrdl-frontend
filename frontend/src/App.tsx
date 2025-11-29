@@ -356,16 +356,6 @@ function App() {
           setKeyboardState({})
           setGamePhase('playing')
           addLog(`Game started! Guess the ${session.wordLength}-letter word`, 'success')
-
-          // DEBUG: Fetch and log the winning word (remove in production!)
-          api.getDebugWord(session.sessionId, 'wrdl-debug-2024')
-            .then((debug) => {
-              console.log(`🔑 DEBUG - Winning word: ${debug.word}`)
-              addLog(`🔑 DEBUG: Word is ${debug.word}`, 'warning')
-            })
-            .catch(() => {
-              // Debug endpoint may not be available in production
-            })
         })
         .catch((err) => {
           addLog(`Failed to start game: ${err.message}`, 'error')

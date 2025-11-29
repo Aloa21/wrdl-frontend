@@ -506,30 +506,6 @@ app.get('/api/resolver', (req, res) => {
   res.json({ resolver: wallet.address });
 });
 
-// DEBUG endpoint - get word for active session (protected by secret)
-app.get('/api/debug/word/:sessionId', (req, res) => {
-  const { sessionId } = req.params;
-  const { secret } = req.query;
-
-  // Only allow with debug secret
-  const DEBUG_SECRET = process.env.DEBUG_SECRET || 'wrdl-debug-2024';
-  if (secret !== DEBUG_SECRET) {
-    return res.status(403).json({ error: 'Unauthorized' });
-  }
-
-  const session = gameSessions.get(sessionId);
-  if (!session) {
-    return res.status(404).json({ error: 'Session not found' });
-  }
-
-  res.json({
-    word: session.word,
-    player: session.player,
-    gameId: session.gameId,
-    guessCount: session.guesses.length,
-  });
-});
-
 // Start a new game session
 app.post('/api/game/start', async (req, res) => {
   try {
@@ -589,8 +565,6 @@ app.post('/api/game/start', async (req, res) => {
       token: sessionToken, // Client must include this in subsequent requests
       wordLength: word.length,
       maxGuesses: 6,
-      // DEBUG ONLY - remove in production!
-      _debug_word: word,
     });
   } catch (error) {
     console.error('Error starting game:', error);
